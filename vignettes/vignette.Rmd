@@ -1,0 +1,107 @@
+---
+title: "SDAtools: A toolkit for SDA"
+author: "Daniel Wells"
+date: "`r Sys.Date()`"
+output: github_document#rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{SDAtools: A toolkit for SDA}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+```{r, include=FALSE}
+devtools::load_all()
+library(SDAtools)
+library(data.table)
+library(ggplot2)
+library(ggrepel)
+```
+
+This vignette is a tutorial for using SDAtools to prepare data for SDA, run SDA, and analyse the results from SDA.
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(fig.width=9, fig.height=6)
+```
+
+## Running SDA within R
+If SDA is installed on the same machine as SDAtools we can run SDA from within R.
+As a toy dataset for this vignette I simulate data from the SDA model.
+
+```{r run}
+# Install and Load SDAtools
+# devtools::install_github("marchinilab/SDAtools")
+library(SDAtools)
+
+# Simulate data
+data <- simulate_2D_data()
+export_data(data$Y, name = "simulated")
+
+# Run SDA
+run_SDA(out = "simulation_results",
+        data = "simulated.data",
+        N = 100)
+```
+
+## Load Results
+We can easily load the SDA results into an R object.
+```{r load}
+# Load the results
+results <- load_results(results_folder = "simulation_results", iteration = 5000)
+str(results)
+```
+
+In this case we also have the true values of the scores so we can compare those to the SDA inferred scores.
+```{r compare}
+# Compare original and recovered score vectors
+check_simulation_scores(data = data, results = results)
+```
+
+
+## Check Convergence
+We can check for convergence by seeing if the free energy and % PIP <0.5 have stabalised.
+
+```{r convergence}
+check_convergence(results)
+```
+
+## Plot Distributions
+
+We might want to check the overall distribution of loadings, scores, or PIP.
+
+```{r distributions}
+loading_distribution(results)
+scores_distribution(results)
+plot_maximums(results)
+plot_scree(results)
+PIP_distribution(results)
+PIP_component_distribution(results, 2)
+PIP_threshold_distribution(results)
+```
+
+## Check Specific Gene / Component
+If we are interested in a specific gene we could check which components have the highest loadings for that gene. We could then check which are the highest genes in that component.
+
+```{r specific}
+# Add fake genes labels to variables
+colnames(results$loadings[[1]]) <- random_500_gene_names
+
+# Which component has the highest loading for gene 1
+highest_components(results, variable_name =  "Xrn1")
+
+# Which genes have the highest loading in componetn 1
+highest_genes(results, component = 1)
+```
+
+## Manhatten-esq plot for loadings
+We can also plot the gene loadings by genomic location
+
+```{r manhatten}
+# Get gene coordinates/locations from Ensembl Biomart
+rna_locations <- load_gene_locations(colnames(results$loadings[[1]]))
+
+# Plot loadings along the genome
+genome_loadings(results$loadings[[1]][1,], gene_locations=rna_locations)
+
+# Plot individual scores
+plot_scores(results, 1)
+```
+

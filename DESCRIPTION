@@ -1,0 +1,24 @@
+Package: SDAtools
+Type: Package
+Title: SDAtools: A toolkit for SDA
+Version: 1.0
+Date: 2017-04-19
+Authors@R: c(
+	person("Daniel", "Wells", email = "wells@stats.ox.ac.uk", role = c("aut", "cre")),
+	person("Victoria", "Hore", role = "aut"))
+Description: This package contains user friendly helper functions to accompany the SDA software
+License: MIT + file LICENSE
+Imports:
+	data.table,
+	ggplot2,
+	ggrepel,
+	cowplot,
+	biomaRt,
+	NMF
+RoxygenNote: 6.0.1
+Suggests:
+	knitr,
+	rmarkdown,
+	testthat
+VignetteBuilder: knitr
+LazyData: true
