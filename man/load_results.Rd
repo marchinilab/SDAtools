@@ -4,12 +4,14 @@
 \alias{load_results}
 \title{Read SDA output into R list}
 \usage{
-load_results(results_folder, iteration)
+load_results(results_folder, iteration, data_path = NULL)
 }
 \arguments{
 \item{results_folder}{string; path to folder containing estimates, same as the string you passed to '--out' when running SDA}
 
 \item{iteration}{integer; iteration number of save to load}
+
+\item{data_path}{string; path to location data was saved (using export_data). Used to reload gene and individual names}
 }
 \value{
 A list of matrices
