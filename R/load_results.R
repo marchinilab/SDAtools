@@ -5,7 +5,7 @@
 #'
 #' @param results_folder string; path to folder containing estimates, same as the string you passed to '--out' when running SDA
 #' 
-#' @param iteration integer; iteration number of save to load
+#' @param iteration integer; iteration number of save to load, defaults to maximum
 #' 
 #' @param data_path string; path to location data was saved (using export_data). Used to reload gene and individual names
 #' 
@@ -17,7 +17,12 @@
 #' @export
 #' @import data.table
 
-load_results <- function(results_folder, iteration, data_path=NULL) {
+load_results <- function(results_folder, iteration=NULL, data_path=NULL) {
+  
+  # get highest ieration if not specified
+  if (is.null(iteration)){
+  iteration <- max(gsub("it", "",basename(grep("it[0-9]",list.dirs(gsub(".$", "", results_folder)), value=TRUE))))
+  }
   
   folder <- paste0(results_folder, "/it", iteration)
   stopifnot(dir.exists(folder))
