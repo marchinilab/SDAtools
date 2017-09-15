@@ -23,6 +23,7 @@ run_SDA <- function(sda_location = "sda",
 	max_iter = 5000,
 	save_freq = 5001,
 	free_freq = 50,
+	set_seed = NULL,
 	ignore_missing = FALSE,
 	remove_zero_comps = TRUE,
 	num_blocks = 1,
@@ -33,6 +34,12 @@ run_SDA <- function(sda_location = "sda",
 	if(dir.exists(out)) stop("That results directory already exists")
 	
 	dir.create(out)
+
+	if(!is.null(set_seed)){
+		seed <- paste0(" --set_seed ",set_seed)
+	}else{
+		seed <- ""
+	}
 	
 	command <- paste0(sda_location,
 		' --data ',data,
@@ -42,6 +49,7 @@ run_SDA <- function(sda_location = "sda",
 		' --max_iter ',max_iter,
 		' --save_freq ',save_freq,
 		' --free_freq ',free_freq,
+		seed,
 		' --ignore_missing ',ignore_missing,
 		' --remove_zero_comps ',remove_zero_comps,
 		' --num_blocks ',num_blocks,
