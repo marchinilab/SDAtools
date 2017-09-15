@@ -309,23 +309,38 @@ PIP_threshold_distribution <- function(results, omic=1){
 #' 
 #' 
 #' @export
-#' @import ggplot2
+#' @import ggplot2 scales
 # 
 highest_components <- function(results, variable_name, top_n=5, omic=1){
-temp <- data.table(component = seq_len(results$n$components),
-                   loading = results$loadings[[omic]][,variable_name])
 
-ggplot(temp, aes(component, loading)) +
-geom_point() +
-geom_label_repel(data = temp[order(-abs(loading))][seq_len(top_n)], 
-	aes(label = component), 
-	size = 3, 
-	box.padding = unit(0.5, "lines"), 
-	point.padding = unit(0.1, "lines"), 
-	force=1,
-	segment.size=0.2,
-	segment.color="blue") +
-ggtitle(paste("Components with highest loading for variable:", variable_name))
+  reverselog_trans <- function(base = exp(1)) {
+    trans <- function(x) -log(x, base)
+    inv <- function(x) base^(-x)
+    trans_new(paste0("reverselog-", format(base)), trans, inv, 
+              log_breaks(base = base), 
+              domain = c(1e-100, Inf))
+    }
+  
+  temp <- data.table(component = seq_len(results$n$components),
+                   loading = results$loadings[[omic]][,variable_name])
+  
+  for (c in seq_len(results$n$components)){
+    temp[component==c, rank := which(names(sort(-abs(results$loadings[[omic]][c,])))==variable_name)]
+  }
+
+  ggplot(temp, aes(loading, rank)) +
+    geom_point() +
+    scale_y_continuous(trans=reverselog_trans(10)) +
+    annotation_logticks(side="l") + 
+    geom_label_repel(data = temp[order(rank)][seq_len(top_n)], 
+                     aes(label = component), 
+                     size = 3, 
+                     box.padding = unit(0.5, "lines"), 
+                     point.padding = unit(0.1, "lines"), 
+                     force=1,
+                     segment.size=0.2,
+                     segment.color="blue") +
+    ggtitle(paste("Components with highest loading for variable:", variable_name))
 }
 
 #' Which gene has the highest loading for a given component
