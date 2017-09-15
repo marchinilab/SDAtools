@@ -14,7 +14,8 @@ Imports:
 	ggrepel,
 	cowplot,
 	biomaRt,
-	NMF
+	NMF,
+	scales
 RoxygenNote: 6.0.1
 Suggests:
 	knitr,
