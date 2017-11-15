@@ -26,6 +26,7 @@ run_SDA <- function(sda_location = "sda",
 	set_seed = NULL,
 	ignore_missing = FALSE,
 	remove_zero_comps = TRUE,
+	eigen_parallel = FALSE,
 	num_blocks = 1,
 	num_openmp_threads = 1) {
   
@@ -54,6 +55,7 @@ run_SDA <- function(sda_location = "sda",
 		' --remove_zero_comps ',remove_zero_comps,
 		' --num_blocks ',num_blocks,
 		' --num_openmp_threads ',num_openmp_threads,
+		' --eigen_parallel ',eigen_parallel,
 		' > ',out,'/log.txt')
 	
 	system(command)
