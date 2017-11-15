@@ -6,8 +6,8 @@
 \usage{
 run_SDA(sda_location = "sda", out = NULL, data = NULL, N = NULL,
   num_comps = 10, max_iter = 5000, save_freq = 5001, free_freq = 50,
-  ignore_missing = FALSE, remove_zero_comps = TRUE, num_blocks = 1,
-  num_openmp_threads = 1)
+  set_seed = NULL, ignore_missing = FALSE, remove_zero_comps = TRUE,
+  eigen_parallel = FALSE, num_blocks = 1, num_openmp_threads = 1)
 }
 \arguments{
 \item{sda_location}{string; location of the sda executable e.g. "../SDA/build/sda"
