@@ -466,13 +466,13 @@ if (file.exists(paste0(path, "SDAtools_gene_locations_", name, ".rds"))==FALSE){
 # set chromosome lengths for calculating plotting position
 if (organism=="mmusculus_gene_ensembl"){
 # http://www.ncbi.nlm.nih.gov/projects/genome/assembly/grc/mouse/data/
-chromosome.lengths <- data.table(chromosome=factor(c(1:19,"X","Y","MT","Un")),
+chromosome.lengths <- data.table(chromosome=factor(c(1:19,"X","Y","MT","?")),
                                  length=c(196283350,182113224,160039680,157219549,153573022,149736546,145617427,129401213,124595110,130694993,122082543,
                                           120129022,120421639,124902244,104043685,98207768,94987271,90702639,61431566,171368232,92500857,18e3,803895))
 
 }else if(organism=="hsapiens_gene_ensembl"){
 # http://www.ncbi.nlm.nih.gov/projects/genome/assembly/grc/human/data/ GRCh38.p7
-chromosome.lengths <- data.table(chromosome=factor(c(1:22,"X","Y","MT","Un")),
+chromosome.lengths <- data.table(chromosome=factor(c(1:22,"X","Y","MT","?")),
                                  length=c(248956422,242193529,198295559,190214555,181538259,170805979,159345973,145138636,138394717,133797422,135086622,133275309,
                                           114364328,107043718,101991189,90338345,83257441,80373285,58617616,64444167,46709983,50818468,156040895,57227415,22222222,4485509))
 }else{
@@ -526,10 +526,10 @@ setkey(temp, gene_symbol)
 setkey(gene_locations, gene_symbol)
 temp <- merge(temp, gene_locations, all.x = TRUE)
 
-temp$chromosome <- factor(temp$chromosome_name, levels = c(1:22,"X","Y","MT","Un"))
+temp$chromosome <- factor(temp$chromosome_name, levels = c(1:22,"X","Y","MT","?"))
 
-temp[is.na(chromosome)]$chromosome <- "Un"
-temp[chromosome=="Un"]$start_position <- sample(1:chromosome.lengths[chromosome=="Un"]$length, nrow(temp[chromosome=="Un"]))
+temp[is.na(chromosome)]$chromosome <- "?"
+temp[chromosome=="?"]$start_position <- sample(1:chromosome.lengths[chromosome=="?"]$length, nrow(temp[chromosome=="?"]))
 
 setkey(temp,chromosome)
 temp <- chromosome.lengths[temp]
@@ -550,6 +550,11 @@ if (label_X == TRUE){
 	temp[abs(loading) > min_loading][chromosome_name == "X"])
 }
 
+levels(temp$chromosome)[levels(temp$chromosome)=="MT"] <- "M"
+
+cl <- chromosome.lengths
+levels(cl$chromosome)[levels(cl$chromosome)=="MT"] <- "M"
+
 
 P <- ggplot(temp, aes(genomic_position, loading)) +
 	geom_point(size = 0.5, aes(color = chromosome)) +
@@ -557,7 +562,7 @@ P <- ggplot(temp, aes(genomic_position, loading)) +
 	xlab("Genomic Coordinate") +
 	ylab("Loading") +
 	theme(legend.position = "none") +
-	scale_x_continuous(breaks = chromosome.lengths$center, labels = chromosome.lengths$chromosome, minor_breaks=NULL) +
+	scale_x_continuous(breaks = cl$center, labels = cl$chromosome, minor_breaks=NULL) +
 	geom_label_repel(data = label_data, 
 		aes(label = gene_symbol), 
 		size = label.size, 
