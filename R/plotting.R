@@ -518,7 +518,8 @@ genome_loadings <- function(component = NULL,
                             label_both = FALSE,
                             label_X = FALSE,
                             min_loading = 0.01,
-                            gene_locations=rna_locations){
+                            gene_locations=rna_locations,
+							hide_unknown=FALSE){
 
 temp <- data.table(loading = component, gene_symbol = names(component))
 
@@ -554,6 +555,11 @@ levels(temp$chromosome)[levels(temp$chromosome)=="MT"] <- "M"
 
 cl <- chromosome.lengths
 levels(cl$chromosome)[levels(cl$chromosome)=="MT"] <- "M"
+
+if(hide_unknown){
+	temp <- temp[chromosome!="?"]
+	cl <- cl[chromosome!="?"]
+}
 
 
 P <- ggplot(temp, aes(genomic_position, loading)) +
