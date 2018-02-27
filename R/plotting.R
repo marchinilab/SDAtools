@@ -468,7 +468,7 @@ if (organism=="mmusculus_gene_ensembl"){
 # http://www.ncbi.nlm.nih.gov/projects/genome/assembly/grc/mouse/data/
 chromosome.lengths <- data.table(chromosome=factor(c(1:19,"X","Y","MT","Un")),
                                  length=c(196283350,182113224,160039680,157219549,153573022,149736546,145617427,129401213,124595110,130694993,122082543,
-                                          120129022,120421639,124902244,104043685,98207768,94987271,90702639,61431566,171368232,92500857,18000,803895))
+                                          120129022,120421639,124902244,104043685,98207768,94987271,90702639,61431566,171368232,92500857,18e3,803895))
 
 }else if(organism=="hsapiens_gene_ensembl"){
 # http://www.ncbi.nlm.nih.gov/projects/genome/assembly/grc/human/data/ GRCh38.p7
@@ -478,8 +478,8 @@ chromosome.lengths <- data.table(chromosome=factor(c(1:22,"X","Y","MT","Un")),
 }else{
   print("Error: Organism chromosme lengths not found / not currently supported")
 }
-chromosome.lengths[,length_padded:=length+5000000]
-chromosome.lengths[length<5e7, length_padded:=length_padded+5e7]
+chromosome.lengths[,length_padded:=length+1e7]
+chromosome.lengths[chromosome %in% c("Y","MT"), length_padded:=length_padded+4e7]
 chromosome.lengths[,genomic_offset:=cumsum(as.numeric(length_padded))-(length_padded)]
 chromosome.lengths[,center := genomic_offset + length/2]
 setkey(chromosome.lengths,chromosome)
