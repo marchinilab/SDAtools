@@ -538,8 +538,10 @@ temp <- chromosome.lengths[temp]
 
 temp[, genomic_position := genomic_offset + start_position]
 
+if (!is.null(highlight_genes)){
+  label_data <- temp[gene_symbol %in% highlight_genes]
 
-if (label_both == TRUE){
+}else if (label_both == TRUE){
 	label_data <- temp[loading > min_loading][order(-loading)][1:max.items] # positives
 	label_data <- rbind(label_data,
 	                    temp[loading < (-min_loading)][order(loading)][1:max.items]) # add negatives
