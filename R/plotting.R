@@ -4,12 +4,12 @@
 #'
 #'
 #' @param results list; object containing result  (output of read_output)
-#' 
+#'
 #' @return A ggplot2 object
 #'
 #' @examples
-#' 
-#' 
+#'
+#'
 #' @export
 #' @import ggplot2
 plot_free_energy <- function(results) {
@@ -26,12 +26,12 @@ qplot(seq_len(ncol(results$free_energy)) * as.numeric(results$command$free_freq)
 #'
 #'
 #' @param results list; object containing result  (output of read_output)
-#' 
+#'
 #' @return A ggplot2 object
 #'
 #' @examples
-#' 
-#' 
+#'
+#'
 #' @export
 #' @import ggplot2
 plot_free_energy_change <- function(results) {
@@ -49,14 +49,14 @@ qplot(seq_along(diff(results$free_energy[1,]))  * as.numeric(results$command$fre
 #'
 #'
 #' @param results list; object containing result  (output of read_output)
-#' 
+#'
 #' @param omic numeric or character; index of the omic type to plot, or name of omic type if you assigned a name
-#' 
+#'
 #' @return A ggplot2 object
 #'
 #' @examples
-#' 
-#' 
+#'
+#'
 #' @export
 #' @import ggplot2
 loading_distribution <- function(results, omic=1){
@@ -73,12 +73,12 @@ loading_distribution <- function(results, omic=1){
 #'
 #'
 #' @param results list; object containing result  (output of read_output)
-#' 
+#'
 #' @return A ggplot2 object
 #'
 #' @examples
-#' 
-#' 
+#'
+#'
 #' @export
 #' @import ggplot2
 scores_distribution <- function(results){
@@ -95,20 +95,20 @@ scores_distribution <- function(results){
 #'
 #'
 #' @param results list; object containing result  (output of read_output)
-#' 
+#'
 #' @param omic numeric or character; index of the omic type to plot loading for, or name of omic type if you assigned a name
-#' 
+#'
 #' @return A ggplot2 object
 #'
 #' @examples
-#' 
-#' 
+#'
+#'
 #' @export
 #' @import data.table ggplot2 ggrepel
 plot_maximums <- function(results, omic=1){
-  
+
   if(is.null(results$component_statistics$max_score)){ # skip if previously calculated
-    
+
   component_stats_temp <- data.table(
     Component = 1:results$n$components,
     Component_name = dimnames(results$scores)[[2]],
@@ -117,7 +117,7 @@ plot_maximums <- function(results, omic=1){
     mean_score = apply(abs(results$scores), 2, mean),
     mean_loading = apply(abs(results$loadings[[omic]]), 1, mean)
     )[order(-Component)]
-  
+
   if(is.null(results$component_statistics)){
   results$component_statistics <<- component_stats_temp
   results$component_statistics <- component_stats_temp
@@ -127,9 +127,9 @@ plot_maximums <- function(results, omic=1){
     results$component_statistics <- cbind(results$component_statistics,
                                            component_stats_temp[, -c("Component","Component_name"), with=FALSE])
   }
-  
+
   }
-  
+
 ggplot(results$component_statistics, aes(max_score, max_loading, label = Component_name)) +
   geom_point() +
   geom_label_repel()
@@ -144,37 +144,37 @@ ggplot(results$component_statistics, aes(max_score, max_loading, label = Compone
 #' @param results list; object containing result  (output of read_output)
 #'
 #' @param omic numeric or character; index of the omic type to calculate contributions for, or name of omic type if you assigned a name
-#'  
+#'
 #' @return A ggplot2 object
 #'
 #' @examples
-#' 
-#' 
+#'
+#'
 #' @export
 #' @import ggplot2
 plot_scree <- function(results, omic=1){
-  
+
   if(is.null(results$component_statistics$product_sum)){ # skip if previously calculated
-    
+
   # Calculate product of score and loadings vectors for each component
   # get outer product statistics for each component
   summarise_component_matrix <- function(x){
     temp <- results$scores[ , x, drop=F] %*% results$loadings[[omic]][x, , drop=F] # i.e. outer product
     c(sum(abs(temp)), sd(temp))
   }
-  
+
   x <- matrix(nrow = nrow(results$loadings[[omic]]), ncol=2)
   for (i in 1:nrow(results$loadings[[omic]])){
     x[i, ] <- summarise_component_matrix(i)
   }
-  
+
   component_stats_temp <- data.table(
     Product_sd = x[,2],
     Product_sum = x[,1],
     Component = seq_len(results$n$components),
     Component_name = dimnames(results$scores)[[2]]
   )[order(-Component)]
-  
+
   if(is.null(results$component_statistics)){
     results$component_statistics <<- component_stats_temp
     results$component_statistics <- component_stats_temp
@@ -184,9 +184,9 @@ plot_scree <- function(results, omic=1){
     results$component_statistics <- cbind(results$component_statistics,
                                            component_stats_temp[, -c("Component","Component_name"), with=FALSE])
   }
-  
+
   }
-  
+
 ggplot(results$component_statistics[order(-Product_sd)], aes(factor(Component, levels = Component), Product_sd)) +
   geom_bar(stat="identity") +
   labs(x="Component")
@@ -199,14 +199,14 @@ ggplot(results$component_statistics[order(-Product_sd)], aes(factor(Component, l
 #'
 #'
 #' @param results list; object containing result  (output of read_output)
-#' 
+#'
 #' @param burn_in integer; number of iterations to skip plotting at the start
-#' 
+#'
 #' @return A ggplot2 object
 #'
 #' @examples
-#' 
-#' 
+#'
+#'
 #' @export
 #' @import ggplot2
 plot_PIP <- function(results, burn_in = 50) {
@@ -224,14 +224,14 @@ plot_PIP <- function(results, burn_in = 50) {
 #'
 #'
 #' @param results list; object containing result  (output of read_output)
-#' 
+#'
 #' @param omic numeric or character; index of the omic type to calculate contributions for, or name of omic type if you assigned a name
-#' 
+#'
 #' @return A ggplot2 object
 #'
 #' @examples
-#' 
-#' 
+#'
+#'
 #' @export
 #' @import ggplot2
 PIP_distribution <- function(results, omic=1){
@@ -245,16 +245,16 @@ PIP_distribution <- function(results, omic=1){
 #'
 #'
 #' @param results list; object containing result  (output of read_output)
-#' 
+#'
 #' @param component integer or character; index or name of the component you want to plot
-#' 
+#'
 #' @param omic integer or character; index of the omic type to calculate contributions for, or name of omic type if you assigned a name
-#' 
+#'
 #' @return A ggplot2 object
 #'
 #' @examples
-#' 
-#' 
+#'
+#'
 #' @export
 #' @import ggplot2
 PIP_component_distribution <- function(results, component, omic=1){
@@ -270,14 +270,14 @@ PIP_component_distribution <- function(results, component, omic=1){
 #'
 #'
 #' @param results list; object containing result  (output of read_output)
-#' 
+#'
 #' @param omic integer or character; index of the omic type to calculate contributions for, or name of omic type if you assigned a name
-#' 
+#'
 #' @return A ggplot2 object
 #'
 #' @examples
-#' 
-#' 
+#'
+#'
 #' @export
 #' @import ggplot2
 PIP_threshold_distribution <- function(results, omic=1){
@@ -296,34 +296,34 @@ PIP_threshold_distribution <- function(results, omic=1){
 #'
 #'
 #' @param results list; object containing result  (output of read_output)
-#' 
+#'
 #' @param omic integer or character; index of the omic type to calculate contributions for, or name of omic type if you assigned a name
-#' 
+#'
 #' @param variable_name character string; name or index of variable e.g. gene
-#' 
+#'
 #' @param top_n integer; the number of components to label
-#' 
+#'
 #' @return A ggplot2 object
 #'
 #' @examples
-#' 
-#' 
+#'
+#'
 #' @export
 #' @import ggplot2 scales
-# 
+#
 highest_components <- function(results, variable_name, top_n=5, omic=1){
 
   reverselog_trans <- function(base = exp(1)) {
     trans <- function(x) -log(x, base)
     inv <- function(x) base^(-x)
-    trans_new(paste0("reverselog-", format(base)), trans, inv, 
-              log_breaks(base = base), 
+    trans_new(paste0("reverselog-", format(base)), trans, inv,
+              log_breaks(base = base),
               domain = c(1e-100, Inf))
     }
-  
+
   temp <- data.table(component = seq_len(results$n$components),
                    loading = results$loadings[[omic]][,variable_name])
-  
+
   for (c in seq_len(results$n$components)){
     temp[component==c, rank := which(names(sort(-abs(results$loadings[[omic]][c,])))==variable_name)]
   }
@@ -331,12 +331,12 @@ highest_components <- function(results, variable_name, top_n=5, omic=1){
   ggplot(temp, aes(loading, rank)) +
     geom_point() +
     scale_y_continuous(trans=reverselog_trans(10)) +
-    annotation_logticks(side="l") + 
-    geom_label_repel(data = temp[order(rank)][seq_len(top_n)], 
-                     aes(label = component), 
-                     size = 3, 
-                     box.padding = unit(0.5, "lines"), 
-                     point.padding = unit(0.1, "lines"), 
+    annotation_logticks(side="l") +
+    geom_label_repel(data = temp[order(rank)][seq_len(top_n)],
+                     aes(label = component),
+                     size = 3,
+                     box.padding = unit(0.5, "lines"),
+                     point.padding = unit(0.1, "lines"),
                      force=1,
                      segment.size=0.2,
                      segment.color="blue") +
@@ -349,22 +349,22 @@ highest_components <- function(results, variable_name, top_n=5, omic=1){
 #'
 #'
 #' @param results list; object containing result  (output of read_output)
-#' 
+#'
 #' @param omic integer or character; index of the omic type to calculate contributions for, or name of omic type if you assigned a name
-#' 
+#'
 #' @param component character string; name or index of component
-#' 
+#'
 #' @param top_n integer; the number of components to label
-#' 
+#'
 #' @return A ggplot2 object
 #'
 #' @examples
-#' 
-#' 
+#'
+#'
 #' @export
 #' @import ggplot2
-# 
-# 
+#
+#
 highest_genes <- function(results, component, omic=1, max.items = 20, label.size = 3, label.repel = 1){
 
 temp <- data.table(value = results$loadings[[omic]][component,],
@@ -376,7 +376,7 @@ temp[, gene_index := seq_along(temp$value)]
 
 ggplot(temp, aes(gene_index, value)) +
   geom_point() +
-  geom_label_repel(data = temp[abs(value) > 0.1][order(-abs(value))][1:max.items], 
+  geom_label_repel(data = temp[abs(value) > 0.1][order(-abs(value))][1:max.items],
                    aes(label = gsub("^[XY0-9:-]+:", "", name)),
                    size = label.size,
                    box.padding = unit(0.5, "lines"),
@@ -396,19 +396,19 @@ ggplot(temp, aes(gene_index, value)) +
 #' \code{genome_loadings} Load genome locations for a list of genes
 #'
 #' @param gene.symbols character vector; Vector of gene names to look up genomic coordinates for
-#' 
+#'
 #' @param data.set character; which dataset from Ensembl should be used, e.g. "mmusculus_gene_ensembl" or "hsapiens_gene_ensembl"
 #'
 #' @param gene_name character; which biomart value to use for matching e.g. "external_gene_name"
-#' 
+#'
 #' @return stuff
 #'
 #' @examples
-#' 
-#' 
+#'
+#'
 #' @import biomaRt data.table
 get.location <- function(gene.symbols, data_set, gene_name){
-  
+
 ensembl <- useMart("ENSEMBL_MART_ENSEMBL", host = "www.ensembl.org", dataset = data_set)
 
 mapTab <- getBM(attributes = c(gene_name,'chromosome_name','start_position'),
@@ -440,20 +440,20 @@ return(mapTab)
 #' \code{load_gene_locations} Load gene coordinates from Ensembl biomart or Cached data
 #'
 #' @param genes character vector; Vector of gene names to look up genomic coordinates for
-#' 
+#'
 #' @param cache logical; If TRUE a cache of the downloaded locations will be saved for quick loading next time
-#' 
+#'
 #' @param path character; string of path where the cached location file should be saved
-#' 
+#'
 #' @param organism character; which dataset from Ensembl should be used, e.g. "mmusculus_gene_ensembl" or "hsapiens_gene_ensembl"
-#' 
+#'
 #' @param name character; descriptive name of dataset, this will be appended to the standard cache file name when saving / loading the cache
-#' 
+#'
 #' @return A data table of genes chromosome and coordinate. An object named chromosome.lengths will also be created in the global environment.
 #'
 #' @examples
-#' 
-#' 
+#'
+#'
 #' @export
 #' @import data.table
 load_gene_locations <- function(genes=NULL, cache=TRUE, path="", organism="mmusculus_gene_ensembl", name="mouse"){
@@ -495,20 +495,20 @@ return(readRDS(paste0(path,"SDAtools_gene_locations_",name,".rds")))
 #' \code{genome_loadings} Plot Component Loadings by Genomic Location
 #'
 #' @param component numeric; A named numeric vector containing the gene loadings and their names as the attribute "names"
-#' 
+#'
 #' @param gene_locations data.table; The output of load_gene_locations() containing the gene chromosome location coordinates
-#' 
-#' @param label_both logical; If TRUE the top N genes will be labeled for positive and negative loadings independently. 
+#'
+#' @param label_both logical; If TRUE the top N genes will be labeled for positive and negative loadings independently.
 #' If FALSE only genes with either positive OR negative loadings will be labeled, depending on which side has the highest loading.
-#' 
+#'
 #' @param max.items integer; Number of genes to label each side of 0.
 #' I.e. if label_both is TRUE then the total number of labels will be twice max.items.
-#' 
+#'
 #' @return A data table of statistics and their values
 #'
 #' @examples
 #' genome_loadings(results$loadings[[1]][48,])
-#' 
+#'
 #' @export
 #' @import ggplot2 ggrepel
 genome_loadings <- function(component = NULL,
@@ -519,7 +519,8 @@ genome_loadings <- function(component = NULL,
                             label_X = FALSE,
                             min_loading = 0.01,
                             gene_locations=rna_locations,
-							hide_unknown=FALSE){
+                            hide_unknown=FALSE,
+                            highlight_genes = NULL){
 
 temp <- data.table(loading = component, gene_symbol = names(component))
 
@@ -541,7 +542,8 @@ temp[, genomic_position := genomic_offset + start_position]
 if (label_both == TRUE){
 	label_data <- temp[loading > min_loading][order(-loading)][1:max.items] # positives
 	label_data <- rbind(label_data,
-	temp[loading < (-min_loading)][order(loading)][1:max.items]) # add negatives
+	                    temp[loading < (-min_loading)][order(loading)][1:max.items]) # add negatives
+
 } else {
 	label_data <- temp[abs(loading) > min_loading][order(-abs(loading))][1:max.items]
 }
@@ -569,15 +571,15 @@ P <- ggplot(temp, aes(genomic_position, loading)) +
 	ylab("Loading") +
 	theme(legend.position = "none") +
 	scale_x_continuous(breaks = cl$center, labels = cl$chromosome, minor_breaks=NULL) +
-	geom_label_repel(data = label_data, 
-		aes(label = gene_symbol), 
-		size = label.size, 
-		box.padding = unit(0.5, "lines"), 
-		point.padding = unit(0.1, "lines"), 
+	geom_label_repel(data = label_data,
+		aes(label = gene_symbol),
+		size = label.size,
+		box.padding = unit(0.5, "lines"),
+		point.padding = unit(0.1, "lines"),
 		force= label.repel,
 		segment.size=0.2,
 		segment.color="blue")
-	#	expand_limits(y = c(-0.2,0.2)) +, 
+	#	expand_limits(y = c(-0.2,0.2)) +,
 	return(P)
 }
 
@@ -586,14 +588,14 @@ P <- ggplot(temp, aes(genomic_position, loading)) +
 #' \code{plot_scores} Plot Individual Scores
 #'
 #' @param results list; object containing result  (output of read_output)
-#' 
+#'
 #' @param component integer; The component index to plot scores for
-#' 
+#'
 #' @return A ggplot2 object
 #'
 #' @examples
-#' 
-#' 
+#'
+#'
 #' @export
 #' @import ggplot2
 plot_scores <- function(results, component){
@@ -609,12 +611,12 @@ plot_scores <- function(results, component){
 #' \code{check_convergence} Check Convergence
 #'
 #' @param results list; object containing result  (output of read_output)
-#' 
+#'
 #' @return A ggplot2 object
 #'
 #' @examples
-#' 
-#' 
+#'
+#'
 #' @export
 #' @import ggplot2
 #' @importFrom cowplot ggdraw draw_plot
