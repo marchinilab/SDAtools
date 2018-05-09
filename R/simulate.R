@@ -32,6 +32,11 @@ simulate_2D_data <- function(n_individuals=100, n_variables=500, n_components=10
   data$X <- X
   data$noise <- noise
 
+  # add fake gene names
+  if(n_variables==500){
+    colnames(data$Y) <- random_500_gene_names
+  }
+
   return(data)
 }
 
