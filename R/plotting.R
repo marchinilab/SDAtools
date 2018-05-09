@@ -345,7 +345,7 @@ PIP_threshold_distribution <- function(results, omic=1){
 #'
 #' @examples
 #' data(results)
-#' highest_components(results, 201)
+#' highest_components(results, "Xrn1")
 #'
 #' @export
 #' @import ggplot2 scales
