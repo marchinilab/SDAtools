@@ -28,7 +28,6 @@ export_data(data$Y, name = "simulated.data", path = "../data-raw/")
 # Run SDA
 run_SDA(out = "../data-raw/simulation_results",
         data = "../data-raw/simulated.data",
-        N = 100,
         max_iter = 200,
         save_freq = 200)
 ```

@@ -8,31 +8,23 @@ This is a user friendly R package for facilitating the use of [SDA](https://jmar
 # install.packages("remotes")
 remotes::install_github("marchinilab/SDAtools")
 ```
+Note that [SDA](https://jmarchini.org/sda/) itself must be downloaded and installed seperately.
 
 ## Quick Example Usage
 ```R
 library(SDAtools)
 
-run_SDA(out = "simulation_results",
-        data = "simulated.data",
-        N = 100)
+export_data(simulate_2D_data()$Y, name = "simulated.data")
 
-results <- load_results(results_folder = "simulation_results", iteration = 5000)
+run_SDA(data = "simulated.data", out = "simulation_results")
 
-check_convergence(results)
+results <- load_results(results_folder = "simulation_results")
 
-highest_genes(results, component = 1)
+genome_loadings(results$loadings[[1]][8,])
 ```
+
+![](vignettes/vignette_files/figure-gfm/manhatten-1.png)<!-- -->
 
 For a full guide on how to use this package please see the [vignette](vignettes/vignette.md).
 
-## Directory Organisation
-The [R/](R/) directory contains source code of the functions.
-
-The [man/](man/) directory contains the manual pages for the functions, compiled by roxygen.
-
-The [vignettes/](vignettes/) directory contains tutorial exemplifying usage.
-
-The [tests/](tests/) directory contains the unit tests which are carried out by the testthat R package.
-
-Contributions of any size or form are welcome!
+Contributions and comments of any size or form are welcome!
