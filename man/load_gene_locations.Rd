@@ -24,3 +24,8 @@ A data table of genes chromosome and coordinate. An object named chromosome.leng
 \description{
 \code{load_gene_locations} Load gene coordinates from Ensembl biomart or Cached data
 }
+\examples{
+data(results)
+gene_locations <- load_gene_locations(colnames(results$loadings[[1]]))
+
+}

@@ -6,8 +6,8 @@
 \usage{
 genome_loadings(component = NULL, max.items = 20, label.size = 3,
   label.repel = 1, label_both = FALSE, label_X = FALSE,
-  min_loading = 0.01, gene_locations = rna_locations,
-  hide_unknown = FALSE, highlight_genes = NULL)
+  min_loading = 0.01, gene_locations = NULL, hide_unknown = FALSE,
+  highlight_genes = NULL)
 }
 \arguments{
 \item{component}{numeric; A named numeric vector containing the gene loadings and their names as the attribute "names"}
@@ -26,7 +26,8 @@ If FALSE only genes with either positive OR negative loadings will be labeled, d
 
 \item{min_loading}{numeric; threshold on loading for labeling points;}
 
-\item{gene_locations}{data.table; The output of load_gene_locations() containing the gene chromosome location coordinates}
+\item{gene_locations}{data.table; The output of load_gene_locations() containing the gene chromosome location coordinates,
+if not given load_gene_locations() will be called internally.}
 
 \item{hide_unknown}{logical; if TRUE genes wihtout a chromosome (e.g. placed in scaffolds) are not plotted}
 
@@ -40,8 +41,6 @@ A data table of statistics and their values
 }
 \examples{
 data(results)
-colnames(results$loadings[[1]]) <- random_500_gene_names
-rna_locations <- load_gene_locations(colnames(results$loadings[[1]]))
 genome_loadings(results$loadings[[1]][8,])
 
 }

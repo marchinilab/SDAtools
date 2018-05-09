@@ -500,7 +500,7 @@ return(mapTab)
 #'
 #' @return A data table of genes chromosome and coordinate. An object named chromosome.lengths will also be created in the global environment.
 #'
-#' @example
+#' @examples
 #' data(results)
 #' gene_locations <- load_gene_locations(colnames(results$loadings[[1]]))
 #'
