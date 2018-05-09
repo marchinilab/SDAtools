@@ -1,0 +1,1 @@
+sda --data ../data-raw/simulated.data --N 100 --out ../data-raw/simulation_results --num_comps 10 --max_iter 200 --save_freq 200 --free_freq 10 --ignore_missing FALSE --remove_zero_comps TRUE --num_blocks 1 --num_openmp_threads 1 --eigen_parallel FALSE --save_everything FALSE --debug FALSE 

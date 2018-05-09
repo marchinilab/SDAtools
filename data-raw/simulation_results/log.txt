@@ -1,0 +1,473 @@
+
+=========================================
+SDA (Sparse Decomposition of Arrays) v1.0
+=========================================
+
+copyright 2016 Victoria Hore and Jonathan Marchini
+This software is distributed for NON-COMMERCIAL USE ONLY
+Please read the LICENCE file for more details or visit https://jmarchini.org/sofware-licence/
+
+
+****** Printing command line flags ******
+
+save frequency: 200
+calculation of free energy frequency: 10
+convergence criteria: 0
+maximum number of iterations: 200
+standardise variance and de-mean: false
+step size in SSS1(?): 0.0001
+number dense components: 0
+number of components: 10
+impute missing data: false
+ignore missing data: false
+
+Not multi-threading in Eigen.
+Remove zero components: 1
+Number of blocks used in parallelisation: 1
+
+Number of threads to use in openmp: 1
+debug: 0
+random seed: 13435 19419
+
+
+Getting data dimensions for...
+../data-raw/simulated.data
+number of data types: 1
+number of individuals: 100
+number of variables per data type:  500 
+number of contexts per data type:  1 
+outfolder: ../data-raw/simulation_results
+update mix method: Gauss
+update source method: SS2
+update source with a mean: 0
+
+prior_g: 0
+prior_h: 0
+prior_rho1: 1
+prior_rho2: 1
+prior_lambda1: 1e-06
+prior_lambda2: 1e+06
+prior_e: 1e-06
+prior_f: 1e+06
+
+
+Reading in data......data file 0 ...
+...done.
+****** Running method ******
+
+****** Starting updates ******
+Iteration # 1 fraction < 0.5 in S(0) : 0.0002
+# active components = 10
+Iteration # 2 fraction < 0.5 in S(0) : 0.781
+# active components = 10
+Iteration # 3 fraction < 0.5 in S(0) : 0.7974
+# active components = 10
+Iteration # 4 fraction < 0.5 in S(0) : 0.795
+# active components = 10
+Iteration # 5 fraction < 0.5 in S(0) : 0.797
+# active components = 10
+Iteration # 6 fraction < 0.5 in S(0) : 0.7972
+# active components = 10
+Iteration # 7 fraction < 0.5 in S(0) : 0.7972
+# active components = 10
+Iteration # 8 fraction < 0.5 in S(0) : 0.8032
+# active components = 10
+Iteration # 9 fraction < 0.5 in S(0) : 0.8084
+# active components = 10
+Iteration # 10 fraction < 0.5 in S(0) : 0.8126
+# active components = 10
+Iteration # 11 fraction < 0.5 in S(0) : 0.818
+# active components = 10
+Iteration # 12 fraction < 0.5 in S(0) : 0.8246
+# active components = 10
+Iteration # 13 fraction < 0.5 in S(0) : 0.8308
+# active components = 10
+Iteration # 14 fraction < 0.5 in S(0) : 0.8362
+# active components = 10
+Iteration # 15 fraction < 0.5 in S(0) : 0.841
+# active components = 10
+Iteration # 16 fraction < 0.5 in S(0) : 0.8438
+# active components = 10
+Iteration # 17 fraction < 0.5 in S(0) : 0.8444
+# active components = 10
+Iteration # 18 fraction < 0.5 in S(0) : 0.8476
+# active components = 10
+Iteration # 19 fraction < 0.5 in S(0) : 0.8518
+# active components = 10
+Iteration # 20 fraction < 0.5 in S(0) : 0.855
+# active components = 10
+Iteration # 21 fraction < 0.5 in S(0) : 0.8578
+# active components = 10
+Iteration # 22 fraction < 0.5 in S(0) : 0.8596
+# active components = 10
+Iteration # 23 fraction < 0.5 in S(0) : 0.863
+# active components = 10
+Iteration # 24 fraction < 0.5 in S(0) : 0.8662
+# active components = 10
+Iteration # 25 fraction < 0.5 in S(0) : 0.8684
+# active components = 10
+Iteration # 26 fraction < 0.5 in S(0) : 0.8704
+# active components = 10
+Iteration # 27 fraction < 0.5 in S(0) : 0.8726
+# active components = 10
+Iteration # 28 fraction < 0.5 in S(0) : 0.8744
+# active components = 10
+Iteration # 29 fraction < 0.5 in S(0) : 0.8764
+# active components = 10
+Iteration # 30 fraction < 0.5 in S(0) : 0.8788
+# active components = 10
+Iteration # 31 fraction < 0.5 in S(0) : 0.8812
+# active components = 10
+Iteration # 32 fraction < 0.5 in S(0) : 0.8834
+# active components = 10
+Iteration # 33 fraction < 0.5 in S(0) : 0.8848
+# active components = 10
+Iteration # 34 fraction < 0.5 in S(0) : 0.8854
+# active components = 10
+Iteration # 35 fraction < 0.5 in S(0) : 0.8852
+# active components = 10
+Iteration # 36 fraction < 0.5 in S(0) : 0.8852
+# active components = 10
+Iteration # 37 fraction < 0.5 in S(0) : 0.8852
+# active components = 10
+Iteration # 38 fraction < 0.5 in S(0) : 0.8854
+# active components = 10
+Iteration # 39 fraction < 0.5 in S(0) : 0.8856
+# active components = 10
+Iteration # 40 fraction < 0.5 in S(0) : 0.8858
+# active components = 10
+Iteration # 41 fraction < 0.5 in S(0) : 0.8858
+# active components = 10
+Iteration # 42 fraction < 0.5 in S(0) : 0.8858
+# active components = 10
+Iteration # 43 fraction < 0.5 in S(0) : 0.886
+# active components = 10
+Iteration # 44 fraction < 0.5 in S(0) : 0.8862
+# active components = 10
+Iteration # 45 fraction < 0.5 in S(0) : 0.886
+# active components = 10
+Iteration # 46 fraction < 0.5 in S(0) : 0.8862
+# active components = 10
+Iteration # 47 fraction < 0.5 in S(0) : 0.8862
+# active components = 10
+Iteration # 48 fraction < 0.5 in S(0) : 0.8862
+# active components = 10
+Iteration # 49 fraction < 0.5 in S(0) : 0.886
+# active components = 10
+Iteration # 50 fraction < 0.5 in S(0) : 0.8856
+# active components = 10
+Iteration # 51 fraction < 0.5 in S(0) : 0.8862
+# active components = 10
+Iteration # 52 fraction < 0.5 in S(0) : 0.886
+# active components = 10
+Iteration # 53 fraction < 0.5 in S(0) : 0.8858
+# active components = 10
+Iteration # 54 fraction < 0.5 in S(0) : 0.8862
+# active components = 10
+Iteration # 55 fraction < 0.5 in S(0) : 0.8862
+# active components = 10
+Iteration # 56 fraction < 0.5 in S(0) : 0.886
+# active components = 10
+Iteration # 57 fraction < 0.5 in S(0) : 0.8862
+# active components = 10
+Iteration # 58 fraction < 0.5 in S(0) : 0.8862
+# active components = 10
+Iteration # 59 fraction < 0.5 in S(0) : 0.8864
+# active components = 10
+Iteration # 60 fraction < 0.5 in S(0) : 0.8864
+# active components = 10
+Iteration # 61 fraction < 0.5 in S(0) : 0.8864
+# active components = 10
+Iteration # 62 fraction < 0.5 in S(0) : 0.8864
+# active components = 10
+Iteration # 63 fraction < 0.5 in S(0) : 0.8866
+# active components = 10
+Iteration # 64 fraction < 0.5 in S(0) : 0.8864
+# active components = 10
+Iteration # 65 fraction < 0.5 in S(0) : 0.8862
+# active components = 10
+Iteration # 66 fraction < 0.5 in S(0) : 0.8864
+# active components = 10
+Iteration # 67 fraction < 0.5 in S(0) : 0.8864
+# active components = 10
+Iteration # 68 fraction < 0.5 in S(0) : 0.8866
+# active components = 10
+Iteration # 69 fraction < 0.5 in S(0) : 0.8866
+# active components = 10
+Iteration # 70 fraction < 0.5 in S(0) : 0.8864
+# active components = 10
+Iteration # 71 fraction < 0.5 in S(0) : 0.8868
+# active components = 10
+Iteration # 72 fraction < 0.5 in S(0) : 0.887
+# active components = 10
+Iteration # 73 fraction < 0.5 in S(0) : 0.8872
+# active components = 10
+Iteration # 74 fraction < 0.5 in S(0) : 0.8876
+# active components = 10
+Iteration # 75 fraction < 0.5 in S(0) : 0.888
+# active components = 10
+Iteration # 76 fraction < 0.5 in S(0) : 0.8882
+# active components = 10
+Iteration # 77 fraction < 0.5 in S(0) : 0.8882
+# active components = 10
+Iteration # 78 fraction < 0.5 in S(0) : 0.8882
+# active components = 10
+Iteration # 79 fraction < 0.5 in S(0) : 0.888
+# active components = 10
+Iteration # 80 fraction < 0.5 in S(0) : 0.888
+# active components = 10
+Iteration # 81 fraction < 0.5 in S(0) : 0.8882
+# active components = 10
+Iteration # 82 fraction < 0.5 in S(0) : 0.8882
+# active components = 10
+Iteration # 83 fraction < 0.5 in S(0) : 0.8882
+# active components = 10
+Iteration # 84 fraction < 0.5 in S(0) : 0.889
+# active components = 10
+Iteration # 85 fraction < 0.5 in S(0) : 0.8892
+# active components = 10
+Iteration # 86 fraction < 0.5 in S(0) : 0.8902
+# active components = 10
+Iteration # 87 fraction < 0.5 in S(0) : 0.8908
+# active components = 10
+Iteration # 88 fraction < 0.5 in S(0) : 0.8914
+# active components = 10
+Iteration # 89 fraction < 0.5 in S(0) : 0.892
+# active components = 10
+Iteration # 90 fraction < 0.5 in S(0) : 0.8934
+# active components = 10
+Iteration # 91 fraction < 0.5 in S(0) : 0.8954
+# active components = 10
+Iteration # 92 fraction < 0.5 in S(0) : 0.897
+# active components = 10
+Iteration # 93 fraction < 0.5 in S(0) : 0.8992
+# active components = 10
+Iteration # 94 fraction < 0.5 in S(0) : 0.9008
+# active components = 10
+Iteration # 95 fraction < 0.5 in S(0) : 0.901
+# active components = 10
+Iteration # 96 fraction < 0.5 in S(0) : 0.9024
+# active components = 10
+Iteration # 97 fraction < 0.5 in S(0) : 0.903
+# active components = 10
+Iteration # 98 fraction < 0.5 in S(0) : 0.9036
+# active components = 10
+Iteration # 99 fraction < 0.5 in S(0) : 0.9046
+# active components = 10
+Iteration # 100 fraction < 0.5 in S(0) : 0.9062
+# active components = 10
+Iteration # 101 fraction < 0.5 in S(0) : 0.907
+# active components = 10
+Iteration # 102 fraction < 0.5 in S(0) : 0.9078
+# active components = 10
+Iteration # 103 fraction < 0.5 in S(0) : 0.9092
+# active components = 10
+Iteration # 104 fraction < 0.5 in S(0) : 0.9104
+# active components = 10
+Iteration # 105 fraction < 0.5 in S(0) : 0.911
+# active components = 10
+Iteration # 106 fraction < 0.5 in S(0) : 0.911
+# active components = 10
+Iteration # 107 fraction < 0.5 in S(0) : 0.911
+# active components = 10
+Iteration # 108 fraction < 0.5 in S(0) : 0.9112
+# active components = 10
+Iteration # 109 fraction < 0.5 in S(0) : 0.9112
+# active components = 10
+Iteration # 110 fraction < 0.5 in S(0) : 0.9112
+# active components = 10
+Iteration # 111 fraction < 0.5 in S(0) : 0.9112
+# active components = 10
+Iteration # 112 fraction < 0.5 in S(0) : 0.9112
+# active components = 10
+Iteration # 113 fraction < 0.5 in S(0) : 0.9112
+# active components = 10
+Iteration # 114 fraction < 0.5 in S(0) : 0.9112
+# active components = 10
+Iteration # 115 fraction < 0.5 in S(0) : 0.9112
+# active components = 10
+Iteration # 116 fraction < 0.5 in S(0) : 0.9112
+# active components = 10
+Iteration # 117 fraction < 0.5 in S(0) : 0.9114
+# active components = 10
+Iteration # 118 fraction < 0.5 in S(0) : 0.9114
+# active components = 10
+Iteration # 119 fraction < 0.5 in S(0) : 0.9114
+# active components = 10
+Iteration # 120 fraction < 0.5 in S(0) : 0.9114
+# active components = 10
+Iteration # 121 fraction < 0.5 in S(0) : 0.9114
+# active components = 10
+Iteration # 122 fraction < 0.5 in S(0) : 0.9114
+# active components = 10
+Iteration # 123 fraction < 0.5 in S(0) : 0.9114
+# active components = 10
+Iteration # 124 fraction < 0.5 in S(0) : 0.9114
+# active components = 10
+Iteration # 125 fraction < 0.5 in S(0) : 0.9114
+# active components = 10
+Iteration # 126 fraction < 0.5 in S(0) : 0.9114
+# active components = 10
+Iteration # 127 fraction < 0.5 in S(0) : 0.9114
+# active components = 10
+Iteration # 128 fraction < 0.5 in S(0) : 0.9114
+# active components = 10
+Iteration # 129 fraction < 0.5 in S(0) : 0.9114
+# active components = 10
+Iteration # 130 fraction < 0.5 in S(0) : 0.9114
+# active components = 10
+Iteration # 131 fraction < 0.5 in S(0) : 0.9114
+# active components = 10
+Iteration # 132 fraction < 0.5 in S(0) : 0.9114
+# active components = 10
+Iteration # 133 fraction < 0.5 in S(0) : 0.9114
+# active components = 10
+Iteration # 134 fraction < 0.5 in S(0) : 0.9114
+# active components = 10
+Iteration # 135 fraction < 0.5 in S(0) : 0.9114
+# active components = 10
+Iteration # 136 fraction < 0.5 in S(0) : 0.9114
+# active components = 10
+Iteration # 137 fraction < 0.5 in S(0) : 0.9114
+# active components = 10
+Iteration # 138 fraction < 0.5 in S(0) : 0.9114
+# active components = 10
+Iteration # 139 fraction < 0.5 in S(0) : 0.9114
+# active components = 10
+Iteration # 140 fraction < 0.5 in S(0) : 0.9114
+# active components = 10
+Iteration # 141 fraction < 0.5 in S(0) : 0.9114
+# active components = 10
+Iteration # 142 fraction < 0.5 in S(0) : 0.9114
+# active components = 10
+Iteration # 143 fraction < 0.5 in S(0) : 0.9114
+# active components = 10
+Iteration # 144 fraction < 0.5 in S(0) : 0.9114
+# active components = 10
+Iteration # 145 fraction < 0.5 in S(0) : 0.9114
+# active components = 10
+Iteration # 146 fraction < 0.5 in S(0) : 0.9114
+# active components = 10
+Iteration # 147 fraction < 0.5 in S(0) : 0.9114
+# active components = 10
+Iteration # 148 fraction < 0.5 in S(0) : 0.9114
+# active components = 10
+Iteration # 149 fraction < 0.5 in S(0) : 0.9114
+# active components = 10
+Iteration # 150 fraction < 0.5 in S(0) : 0.9114
+# active components = 10
+Iteration # 151 fraction < 0.5 in S(0) : 0.9114
+# active components = 10
+Iteration # 152 fraction < 0.5 in S(0) : 0.9114
+# active components = 10
+Iteration # 153 fraction < 0.5 in S(0) : 0.9114
+# active components = 10
+Iteration # 154 fraction < 0.5 in S(0) : 0.9114
+# active components = 10
+Iteration # 155 fraction < 0.5 in S(0) : 0.9114
+# active components = 10
+Iteration # 156 fraction < 0.5 in S(0) : 0.9114
+# active components = 10
+Iteration # 157 fraction < 0.5 in S(0) : 0.9114
+# active components = 10
+Iteration # 158 fraction < 0.5 in S(0) : 0.9114
+# active components = 10
+Iteration # 159 fraction < 0.5 in S(0) : 0.9116
+# active components = 10
+Iteration # 160 fraction < 0.5 in S(0) : 0.9114
+# active components = 10
+Iteration # 161 fraction < 0.5 in S(0) : 0.9116
+# active components = 10
+Iteration # 162 fraction < 0.5 in S(0) : 0.9114
+# active components = 10
+Iteration # 163 fraction < 0.5 in S(0) : 0.9116
+# active components = 10
+Iteration # 164 fraction < 0.5 in S(0) : 0.9116
+# active components = 10
+Iteration # 165 fraction < 0.5 in S(0) : 0.9116
+# active components = 10
+Iteration # 166 fraction < 0.5 in S(0) : 0.9116
+# active components = 10
+Iteration # 167 fraction < 0.5 in S(0) : 0.9116
+# active components = 10
+Iteration # 168 fraction < 0.5 in S(0) : 0.9116
+# active components = 10
+Iteration # 169 fraction < 0.5 in S(0) : 0.9116
+# active components = 10
+Iteration # 170 fraction < 0.5 in S(0) : 0.9116
+# active components = 10
+Iteration # 171 fraction < 0.5 in S(0) : 0.9116
+# active components = 10
+Iteration # 172 fraction < 0.5 in S(0) : 0.9116
+# active components = 10
+Iteration # 173 fraction < 0.5 in S(0) : 0.9116
+# active components = 10
+Iteration # 174 fraction < 0.5 in S(0) : 0.9116
+# active components = 10
+Iteration # 175 fraction < 0.5 in S(0) : 0.9116
+# active components = 10
+Iteration # 176 fraction < 0.5 in S(0) : 0.9116
+# active components = 10
+Iteration # 177 fraction < 0.5 in S(0) : 0.9116
+# active components = 10
+Iteration # 178 fraction < 0.5 in S(0) : 0.9116
+# active components = 10
+Iteration # 179 fraction < 0.5 in S(0) : 0.9116
+# active components = 10
+Iteration # 180 fraction < 0.5 in S(0) : 0.9116
+# active components = 10
+Iteration # 181 fraction < 0.5 in S(0) : 0.9116
+# active components = 10
+Iteration # 182 fraction < 0.5 in S(0) : 0.9116
+# active components = 10
+Iteration # 183 fraction < 0.5 in S(0) : 0.9116
+# active components = 10
+Iteration # 184 fraction < 0.5 in S(0) : 0.9116
+# active components = 10
+Iteration # 185 fraction < 0.5 in S(0) : 0.9116
+# active components = 10
+Iteration # 186 fraction < 0.5 in S(0) : 0.9116
+# active components = 10
+Iteration # 187 fraction < 0.5 in S(0) : 0.9116
+# active components = 10
+Iteration # 188 fraction < 0.5 in S(0) : 0.9116
+# active components = 10
+Iteration # 189 fraction < 0.5 in S(0) : 0.9116
+# active components = 10
+Iteration # 190 fraction < 0.5 in S(0) : 0.9116
+# active components = 10
+Iteration # 191 fraction < 0.5 in S(0) : 0.9116
+# active components = 10
+Iteration # 192 fraction < 0.5 in S(0) : 0.9116
+# active components = 10
+Iteration # 193 fraction < 0.5 in S(0) : 0.9116
+# active components = 10
+Iteration # 194 fraction < 0.5 in S(0) : 0.9116
+# active components = 10
+Iteration # 195 fraction < 0.5 in S(0) : 0.9116
+# active components = 10
+Iteration # 196 fraction < 0.5 in S(0) : 0.9116
+# active components = 10
+Iteration # 197 fraction < 0.5 in S(0) : 0.9116
+# active components = 10
+Iteration # 198 fraction < 0.5 in S(0) : 0.9116
+# active components = 10
+Iteration # 199 fraction < 0.5 in S(0) : 0.9116
+# active components = 10
+Iteration # 200 fraction < 0.5 in S(0) : 0.9116
+saving current set of estimates
+# active components = 10
+finished updates.
+Reached max_iter
+****** Saving estimates ******
+saving current set of estimates
+****** Timings (seconds) ******
+ - update X: 9.85022 (60%)
+ - update A: 1.60641 (10%)
+ - update B: 0.000247 (0%)
+ - Noise: 4.6065 (28%)
+ - Missing data: 0 (0%)
+ - Free energy: 0.229463 (1%)
+ - Total: 16.516 (100%)
+
+****** Finished! ******

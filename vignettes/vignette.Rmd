@@ -2,55 +2,57 @@
 title: "SDAtools: A toolkit for SDA"
 author: "Daniel Wells"
 date: "`r Sys.Date()`"
-output: github_document#rmarkdown::html_vignette
+output: github_document #rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{SDAtools: A toolkit for SDA}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 ```{r, include=FALSE}
-devtools::load_all()
-library(SDAtools)
-library(data.table)
-library(ggplot2)
-library(ggrepel)
+# rmarkdown::render("vignette.Rmd")
 ```
 
 This vignette is a tutorial for using SDAtools to prepare data for SDA, run SDA, and analyse the results from SDA.
+Note that sda itself is not included in this package and should be downloaded and installed via https://jmarchini.org/sda/
 
 ```{r global_options, include=FALSE}
 knitr::opts_chunk$set(fig.width=9, fig.height=6)
 ```
 
 ## Running SDA within R
-If SDA is installed on the same machine as SDAtools we can run SDA from within R.
+Once SDA is installed we can run SDA from within R.
 As a toy dataset for this vignette I simulate data from the SDA model.
 
-```{r run}
+```{r simulate}
 # Install and Load SDAtools
-# devtools::install_github("marchinilab/SDAtools")
+# remotes::install_github("marchinilab/SDAtools")
 library(SDAtools)
 
 # Simulate data
+set.seed(42)
 data <- simulate_2D_data()
-export_data(data$Y, name = "simulated")
+export_data(data$Y, name = "simulated.data", path = "../data-raw/")
+```
 
+```{r run, eval=FALSE}
 # Run SDA
-run_SDA(out = "simulation_results",
-        data = "simulated.data",
-        N = 100)
+run_SDA(out = "../data-raw/simulation_results",
+        data = "../data-raw/simulated.data",
+        N = 100,
+        max_iter = 200,
+        save_freq = 200)
 ```
 
 ## Load Results
 We can easily load the SDA results into an R object.
 ```{r load}
 # Load the results
-results <- load_results(results_folder = "simulation_results", iteration = 5000)
+results <- load_results(results_folder = "../data-raw/simulation_results", data_path = "../data-raw/")
 str(results)
 ```
 
 In this case we also have the true values of the scores so we can compare those to the SDA inferred scores.
-```{r compare}
+```{r compare, fig.width=12, fig.height=8}
 # Compare original and recovered score vectors
 check_simulation_scores(data = data, results = results)
 ```
@@ -87,8 +89,8 @@ colnames(results$loadings[[1]]) <- random_500_gene_names
 # Which component has the highest loading for gene 1
 highest_components(results, variable_name =  "Xrn1")
 
-# Which genes have the highest loading in componetn 1
-highest_genes(results, component = 1)
+# Which genes have the highest loading in component 4
+highest_genes(results, component = 4)
 ```
 
 ## Manhatten-esq plot for loadings
