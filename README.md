@@ -5,8 +5,8 @@ This is a user friendly R package for facilitating the use of [SDA](https://jmar
 ## Installation
 
 ```R
-# install.packages("devtools")
-devtools::install_github("marchinilab/SDAtools")
+# install.packages("remotes")
+remotes::install_github("marchinilab/SDAtools")
 ```
 
 ## Quick Example Usage
