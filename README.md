@@ -1,4 +1,5 @@
 # SDAtools: A toolkit for analysing SDA decompositions
+[![Travis-CI Build Status](https://travis-ci.org/marchinilab/SDAtools.svg?branch=master)](https://travis-ci.org/marchinilab/SDAtools)
 
 This is a user friendly R package for facilitating the use of [SDA](https://jmarchini.org/sda/), including data formatting, importing results and analysis.
 
