@@ -18,6 +18,7 @@ A ggplot2 object
 \code{plot_scores} Plot Individual Scores
 }
 \examples{
-
+data(results)
+plot_scores(results, 8)
 
 }

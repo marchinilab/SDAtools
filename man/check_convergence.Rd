@@ -10,12 +10,13 @@ check_convergence(results)
 \item{results}{list; object containing result  (output of read_output)}
 }
 \value{
-A ggplot2 object
+A cowplot containing panel of plot_free_energy(), plot_free_energy_change(), and plot_PIP()
 }
 \description{
 \code{check_convergence} Check Convergence
 }
 \examples{
-
+data(results)
+check_convergence(results)
 
 }

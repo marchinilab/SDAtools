@@ -4,12 +4,21 @@
 \alias{loading_distribution}
 \title{Plot overall distribution of gene loadings}
 \usage{
-loading_distribution(results, omic = 1)
+loading_distribution(results, omic = 1, split_by_pip = FALSE, bw = "nrd0",
+  n = 2^9, facet_type = "zoom")
 }
 \arguments{
 \item{results}{list; object containing result  (output of read_output)}
 
 \item{omic}{numeric or character; index of the omic type to plot, or name of omic type if you assigned a name}
+
+\item{split_by_pip}{logical; Should density by plotted seperately for loadings with PIPs either side of 0.5}
+
+\item{bw}{bandwidth used in density estimation, see ?density for more information}
+
+\item{n}{number of points for density evaluation, see ?density for more information}
+
+\item{facet_type}{"zoom" or "wrap"; if split_by_pip is true, should the density be plotted in seperate graphs or the same graph with a zoom.}
 }
 \value{
 A ggplot2 object
@@ -18,6 +27,7 @@ A ggplot2 object
 \code{loading_distribution} Plot overall distribution of gene loadings
 }
 \examples{
-
+data(results)
+loading_distribution(results, split_by_pip = TRUE, facet_type="wrap")
 
 }

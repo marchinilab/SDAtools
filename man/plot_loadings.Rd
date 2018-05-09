@@ -18,7 +18,3 @@ Panel of Heatmaps of loadings
 \code{plot_loadings} plot_loadings
 NB use nmf.options(grid.patch=TRUE) to stop blank pages appearing!
 }
-\examples{
-
-
-}

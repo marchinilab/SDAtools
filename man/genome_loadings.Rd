@@ -6,7 +6,8 @@
 \usage{
 genome_loadings(component = NULL, max.items = 20, label.size = 3,
   label.repel = 1, label_both = FALSE, label_X = FALSE,
-  min_loading = 0.01, gene_locations = rna_locations)
+  min_loading = 0.01, gene_locations = rna_locations,
+  hide_unknown = FALSE, highlight_genes = NULL)
 }
 \arguments{
 \item{component}{numeric; A named numeric vector containing the gene loadings and their names as the attribute "names"}
@@ -14,10 +15,22 @@ genome_loadings(component = NULL, max.items = 20, label.size = 3,
 \item{max.items}{integer; Number of genes to label each side of 0.
 I.e. if label_both is TRUE then the total number of labels will be twice max.items.}
 
-\item{label_both}{logical; If TRUE the top N genes will be labeled for positive and negative loadings independently. 
+\item{label.size}{numeric; size of point labels}
+
+\item{label.repel}{numeric; force of label repulsion}
+
+\item{label_both}{logical; If TRUE the top N genes will be labeled for positive and negative loadings independently.
 If FALSE only genes with either positive OR negative loadings will be labeled, depending on which side has the highest loading.}
 
+\item{label_X}{logical; if TRUE forces labelling of the X chromosome}
+
+\item{min_loading}{numeric; threshold on loading for labeling points;}
+
 \item{gene_locations}{data.table; The output of load_gene_locations() containing the gene chromosome location coordinates}
+
+\item{hide_unknown}{logical; if TRUE genes wihtout a chromosome (e.g. placed in scaffolds) are not plotted}
+
+\item{highlight_genes}{charachter vector of gene names; if provided, only these genes will be labelled}
 }
 \value{
 A data table of statistics and their values
@@ -26,6 +39,9 @@ A data table of statistics and their values
 \code{genome_loadings} Plot Component Loadings by Genomic Location
 }
 \examples{
-genome_loadings(results$loadings[[1]][48,])
+data(results)
+colnames(results$loadings[[1]]) <- random_500_gene_names
+rna_locations <- load_gene_locations(colnames(results$loadings[[1]]))
+genome_loadings(results$loadings[[1]][8,])
 
 }

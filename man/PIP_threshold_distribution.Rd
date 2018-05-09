@@ -18,6 +18,7 @@ A ggplot2 object
 \code{PIP_threshold_distribution} Plot faction PIP < 0.5 distribution
 }
 \examples{
-
+data(results)
+PIP_threshold_distribution(results)
 
 }

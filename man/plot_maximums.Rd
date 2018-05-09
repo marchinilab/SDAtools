@@ -18,6 +18,7 @@ A ggplot2 object
 \code{plot_maximums} Plot maximum score and loading by component
 }
 \examples{
-
+data(results)
+plot_maximums(results)
 
 }

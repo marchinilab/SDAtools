@@ -20,6 +20,7 @@ A ggplot2 object
 \code{PIP_component_distribution} Plot final PIP distribution for a single component
 }
 \examples{
-
+data(results)
+PIP_component_distribution(results, 8)
 
 }

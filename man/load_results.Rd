@@ -19,7 +19,3 @@ A list of matrices
 \description{
 \code{load_results} simulate digital gene expression matrix containing count data from given parameters
 }
-\examples{
-
-
-}

@@ -18,6 +18,7 @@ A ggplot2 object
 \code{plot_scree} Plot scree
 }
 \examples{
-
+data(results)
+plot_scree(results)
 
 }

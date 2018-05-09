@@ -11,7 +11,7 @@ export_data(matrix, path = NULL, name)
 
 \item{path}{character; the directory in which you want the data to be saved}
 
-\item{name}{character; the name of the data, will be included in the file name}
+\item{name}{character; the name of the data file}
 }
 \value{
 Nothing, the data is saved on disk in the directory specified in the parameter 'path'.
@@ -20,6 +20,7 @@ Nothing, the data is saved on disk in the directory specified in the parameter '
 \code{export_data} Export data and labels
 }
 \examples{
-
+data <- simulate_2D_data()
+export_data(data$Y, name = "simulated.data")
 
 }

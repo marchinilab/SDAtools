@@ -19,6 +19,6 @@ Panel of Heatmaps and scatter plots comparing the truth (data) to SDA inference 
 NB use nmf.options(grid.patch=TRUE) to stop blank pages appearing!
 }
 \examples{
-
+# see vignette
 
 }

@@ -14,7 +14,11 @@ highest_genes(results, component, omic = 1, max.items = 20,
 
 \item{omic}{integer or character; index of the omic type to calculate contributions for, or name of omic type if you assigned a name}
 
-\item{top_n}{integer; the number of components to label}
+\item{max.items}{integer; the number of components to label}
+
+\item{label.size}{numeric; size of point labels}
+
+\item{label.repel}{numeric; force of label repulsion}
 }
 \value{
 A ggplot2 object
@@ -23,6 +27,7 @@ A ggplot2 object
 \code{which_gene} plot gene loadings for a given component
 }
 \examples{
-
+data(results)
+highest_genes(results, 8)
 
 }

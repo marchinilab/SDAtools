@@ -16,6 +16,7 @@ A ggplot2 object
 \code{plot_free_energy_change} Plot change in free energy over time
 }
 \examples{
-
+data(results)
+plot_free_energy_change(results)
 
 }

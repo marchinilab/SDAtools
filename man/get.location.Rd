@@ -9,17 +9,13 @@ get.location(gene.symbols, data_set, gene_name)
 \arguments{
 \item{gene.symbols}{character vector; Vector of gene names to look up genomic coordinates for}
 
-\item{gene_name}{character; which biomart value to use for matching e.g. "external_gene_name"}
+\item{data_set}{character; which dataset from Ensembl should be used, e.g. "mmusculus_gene_ensembl" or "hsapiens_gene_ensembl"}
 
-\item{data.set}{character; which dataset from Ensembl should be used, e.g. "mmusculus_gene_ensembl" or "hsapiens_gene_ensembl"}
+\item{gene_name}{character; which biomart value to use for matching e.g. "external_gene_name"}
 }
 \value{
-stuff
+data.table with columns: "gene_symbol", "chromosome_name" and "start_position"
 }
 \description{
-\code{genome_loadings} Load genome locations for a list of genes
-}
-\examples{
-
-
+\code{get.location} Load genome locations for a list of genes
 }

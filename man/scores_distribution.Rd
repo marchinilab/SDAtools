@@ -16,6 +16,7 @@ A ggplot2 object
 \code{scores_distribution} Plot overall distribution of individual scores
 }
 \examples{
-
+data(results)
+scores_distribution(results)
 
 }

@@ -23,6 +23,6 @@ list of Y, A, X and noise matrices
 \code{simulate_2D_data} Simulate 2D Data
 }
 \examples{
-
+data <- simulate_2D_data()
 
 }

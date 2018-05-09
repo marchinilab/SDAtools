@@ -15,7 +15,3 @@ A ggplot2 object
 \description{
 \code{plot_free_energy} Plot free energy over time
 }
-\examples{
-
-
-}

@@ -3,22 +3,22 @@
 #' \code{simulate_2D_data} Simulate 2D Data
 #'
 #' @param n_individuals integer; the number of individuals to simualte
-#' 
+#'
 #' @param n_variables integer vector; vector of integers specifying the number of variables (e.g. genes) in each data type
-#' 
+#'
 #' @param n_components integer; number of true components to simulate from
-#' 
+#'
 #' @param sparsity numeric; value between 0 and 1 for the sparsity
-#' 
+#'
 #' @return list of Y, A, X and noise matrices
 #'
 #' @examples
-#' 
-#' 
+#' data <- simulate_2D_data()
+#'
 #' @export
 simulate_2D_data <- function(n_individuals=100, n_variables=500, n_components=10, sparsity=0.9) {
   A <- matrix(rnorm(n_individuals * n_components), n_individuals, n_components) # individual scores
-  
+
   X <- matrix(rnorm(n_components * n_variables), n_components, n_variables) # loadings
   X[sample(1:length(X), sparsity * length(X))] <- 0  # make loadings sparse
 
@@ -40,16 +40,16 @@ simulate_2D_data <- function(n_individuals=100, n_variables=500, n_components=10
 #'
 #' \code{check_simulation_scores} check_simulation_scores
 #' NB use nmf.options(grid.patch=TRUE) to stop blank pages appearing!
-#' 
+#'
 #' @param data character; location of data saved by simulate_and_save e.g. simulated_true/yourname_data.Rdata"
-#' 
+#'
 #' @param results list; output of load_results()
-#' 
+#'
 #' @return Panel of Heatmaps and scatter plots comparing the truth (data) to SDA inference (results)
 #'
 #' @examples
-#' 
-#' 
+#' # see vignette
+#'
 #' @export
 #' @import data.table
 #' @importFrom NMF aheatmap
@@ -57,30 +57,47 @@ simulate_2D_data <- function(n_individuals=100, n_variables=500, n_components=10
 check_simulation_scores <- function(data, results) {
 
   layout(matrix(c(1,1, 2,2, 3,5,4,6), ncol=4))
-  
+
 	colnames(data$A) = paste("True", seq_len(ncol(data$A)))
 	colnames(results$scores) = paste("Est.", toupper(letters[26:1])[seq_len(ncol(results$scores))])
-  
+
   aheatmap(data$A,
            Rowv=NA,
            Colv=NA,
            sub="Components",
            main="Scores (truth)")
-  
+
   aheatmap(results$scores,
            Rowv=NA,
            Colv=NA,
            sub="Components",
            main="Scores (estimated)")
-  
-  aheatmap(cor(data$A, results$scores),
-           Rowv= FALSE,
-           Colv= FALSE,
+
+  cross_cor <- cor(data$A, results$scores)
+
+  max_cor <- sort(abs(apply(cross_cor, 2, max)), decreasing = T)
+
+  mix_comps <- rownames(cross_cor)
+
+  mix_order <- character()
+
+  for (i in seq_along(max_cor)){
+    tmp2 <- names(which.max(abs(cross_cor[mix_comps, names(max_cor)[i] ])))
+    if(is.null(tmp2)){
+      tmp2 <- mix_comps
+    }
+    mix_order <- c(mix_order, tmp2)
+    mix_comps <- mix_comps[!mix_comps %in% tmp2]
+  }
+
+  aheatmap(cross_cor[mix_order, names(max_cor)],
+           Rowv= NA,
+           Colv= NA,
            sub="Components",
            breaks=0, # always use beige as 0 correlation
            main="Corr. between true\n& estimated scores",
 		   cexRow=0.5)
-  
+
   # plot scatter plot for most correlated true for each estimated component
   # for each 3 components, choose estimated which has highest correlation
   for (y in sample(1:ncol(data$A),3)){
@@ -108,15 +125,13 @@ check_simulation_scores <- function(data, results) {
 #'
 #' \code{plot_loadings} plot_loadings
 #' NB use nmf.options(grid.patch=TRUE) to stop blank pages appearing!
-#' 
+#'
 #' @param data character; location of data saved by simulate_and_save e.g. simulated_true/yourname_data.Rdata"
-#' 
+#'
 #' @param data_type numeric; index of component to plot loadings for
 #' @return Panel of Heatmaps of loadings
 #'
-#' @examples
-#' 
-#' 
+#'
 #' @export
 #' @importFrom NMF aheatmap
 plot_loadings <- function(data, data_type) {

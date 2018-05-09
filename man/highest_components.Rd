@@ -22,6 +22,7 @@ A ggplot2 object
 \code{which_component} plot component loadings for a given gene
 }
 \examples{
-
+data(results)
+highest_components(results, 201)
 
 }

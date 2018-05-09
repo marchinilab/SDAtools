@@ -18,6 +18,7 @@ A ggplot2 object
 \code{PIP_distribution} Plot final PIP distribution over all components
 }
 \examples{
-
+data(results)
+PIP_distribution(results)
 
 }

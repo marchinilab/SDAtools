@@ -18,6 +18,7 @@ A ggplot2 object
 \code{plot_PIP} Plot PIP fraction <0.5 by iteration
 }
 \examples{
-
+data(results)
+plot_PIP(results)
 
 }

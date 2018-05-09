@@ -5,24 +5,52 @@
 \title{run_SDA}
 \usage{
 run_SDA(sda_location = "sda", out = NULL, data = NULL, N = NULL,
-  num_comps = 10, max_iter = 5000, save_freq = 5001, free_freq = 50,
+  num_comps = 10, max_iter = 500, save_freq = NULL, free_freq = NULL,
   set_seed = NULL, ignore_missing = FALSE, remove_zero_comps = TRUE,
-  eigen_parallel = FALSE, num_blocks = 1, num_openmp_threads = 1)
+  eigen_parallel = FALSE, num_blocks = 1, num_openmp_threads = 1,
+  save_everything = FALSE, debug = FALSE)
 }
 \arguments{
 \item{sda_location}{string; location of the sda executable e.g. "../SDA/build/sda"
 the default value 'sda' assumes the location of sda is in your $PATH variable}
 
-\item{All}{the other parameters are identical to those for the command line bash arguments. Please see the SDA manual for the descriptions.
-NB Not all parameters are implemented here.}
+\item{out}{string; name of folder to be created to put results in}
+
+\item{data}{string; name of exported file with data in, should be equal to the value you set as the 'name' parameter for export_data.}
+
+\item{N}{int; number of individuals}
+
+\item{num_comps}{int; how many components to infer (maximum).}
+
+\item{max_iter}{int; maximum number of iterations to run for.}
+
+\item{save_freq}{int; results will be saved every save_freq iterations. Defaults to max_iter/2}
+
+\item{free_freq}{int; free energy will be calculated every free_freq ierations. Defaults to max_iter/20}
+
+\item{set_seed}{string; random numbers to initiate starting position. e.g. "79151 17351". Can be left blank and a seed will be generated.}
+
+\item{ignore_missing}{logical; Should sda ignore samples with completely missing data.}
+
+\item{remove_zero_comps}{logical; should components with all PIPs < 0.05 be removed}
+
+\item{eigen_parallel}{logical; use multi-threading options in eigen.}
+
+\item{num_blocks}{int; number of blocks to split loadings matrix into for parallel updates.}
+
+\item{num_openmp_threads}{int; number of threads to use in parallel mode}
+
+\item{save_everything}{logical; if true will save all parameter estimated including for example noise precision.}
+
+\item{debug}{logical; if true will calculate free energy at every iteration (slower)}
 }
 \value{
 Nothing, the results are saved on disk in the directory specified in the parameter 'out'.
 }
 \description{
-\code{run_SDA} Run SDA
+The parameters are identical to those for the command line bash arguments. Please see the SDA manual for the descriptions.
+NB Not all parameters are implemented here.
 }
-\examples{
-
-
+\details{
+\code{run_SDA} Run SDA
 }
