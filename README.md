@@ -10,7 +10,7 @@ This is a user friendly R package for facilitating the use of [SDA](https://jmar
 # install.packages("remotes")
 remotes::install_github("marchinilab/SDAtools")
 ```
-Note that [SDA](https://jmarchini.org/sda/) itself must be downloaded and installed seperately.
+Note that [SDA](https://jmarchini.org/sda/) itself must be downloaded and installed separately.
 
 ## Quick Example Usage
 ```R
