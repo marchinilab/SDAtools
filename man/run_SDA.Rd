@@ -18,7 +18,8 @@ the default value 'sda' assumes the location of sda is in your $PATH variable}
 
 \item{data}{string; name of exported file with data in, should be equal to the value you set as the 'name' parameter for export_data.}
 
-\item{N}{int; number of individuals}
+\item{N}{int; number of individuals, will be inferred automatically by numer of lines in data file if not provided
+but this will only work if the data is 2D / a single tissue type / data / omic type!}
 
 \item{num_comps}{int; how many components to infer (maximum).}
 

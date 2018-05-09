@@ -9,7 +9,8 @@
 #'
 #' @param data string; name of exported file with data in, should be equal to the value you set as the 'name' parameter for export_data.
 #'
-#' @param N int; number of individuals
+#' @param N int; number of individuals, will be inferred automatically by numer of lines in data file if not provided
+#' but this will only work if the data is 2D / a single tissue type / data / omic type!
 #'
 #' @param num_comps int; how many components to infer (maximum).
 #' @param max_iter int; maximum number of iterations to run for.
@@ -49,7 +50,14 @@ run_SDA <- function(sda_location = "sda",
 	save_everything = FALSE,
 	debug = FALSE) {
 
-	if(is.null(sda_location) | is.null(out) | is.null(data) | is.null(N)) stop("Must Specify all required parameters")
+	if(is.null(sda_location) | is.null(out) | is.null(data)) stop("Must Specify all required parameters")
+
+  if(!file.exists(data)) stop("data file not found")
+
+  if(is.null(N)){
+    warning("Inferring number of individuals automatically - for 2D data only!")
+    N <- as.numeric(system(paste0("wc -l < ",data), intern = T))
+  }
 
 	if(dir.exists(out)) stop("That results directory already exists")
 
