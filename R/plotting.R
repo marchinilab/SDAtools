@@ -500,6 +500,9 @@ return(mapTab)
 #'
 #' @return A data table of genes chromosome and coordinate. An object named chromosome.lengths will also be created in the global environment.
 #'
+#' @example
+#' data(results)
+#' gene_locations <- load_gene_locations(colnames(results$loadings[[1]]))
 #'
 #' @export
 #' @import data.table
@@ -543,7 +546,8 @@ return(readRDS(paste0(path,"SDAtools_gene_locations_",name,".rds")))
 #'
 #' @param component numeric; A named numeric vector containing the gene loadings and their names as the attribute "names"
 #'
-#' @param gene_locations data.table; The output of load_gene_locations() containing the gene chromosome location coordinates
+#' @param gene_locations data.table; The output of load_gene_locations() containing the gene chromosome location coordinates,
+#' if not given load_gene_locations() will be called internally.
 #'
 #' @param label_both logical; If TRUE the top N genes will be labeled for positive and negative loadings independently.
 #' If FALSE only genes with either positive OR negative loadings will be labeled, depending on which side has the highest loading.
@@ -563,8 +567,6 @@ return(readRDS(paste0(path,"SDAtools_gene_locations_",name,".rds")))
 #'
 #' @examples
 #' data(results)
-#' colnames(results$loadings[[1]]) <- random_500_gene_names
-#' rna_locations <- load_gene_locations(colnames(results$loadings[[1]]))
 #' genome_loadings(results$loadings[[1]][8,])
 #'
 #' @export
@@ -576,11 +578,15 @@ genome_loadings <- function(component = NULL,
                             label_both = FALSE,
                             label_X = FALSE,
                             min_loading = 0.01,
-                            gene_locations=rna_locations,
+                            gene_locations=NULL,
                             hide_unknown=FALSE,
                             highlight_genes = NULL){
 
 temp <- data.table(loading = component, gene_symbol = names(component))
+
+if(is.null(gene_locations)){
+  gene_locations <- load_gene_locations(colnames(results$loadings[[1]]))
+}
 
 setkey(temp, gene_symbol)
 setkey(gene_locations, gene_symbol)

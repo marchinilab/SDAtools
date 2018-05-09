@@ -161,9 +161,6 @@ have the highest loadings for that gene. We could then check which are
 the highest genes in that component.
 
 ``` r
-# Add fake genes labels to variables
-colnames(results$loadings[[1]]) <- random_500_gene_names
-
 # Which component has the highest loading for gene 1
 highest_components(results, variable_name =  "Xrn1")
 ```
@@ -182,11 +179,8 @@ highest_genes(results, component = 4)
 We can also plot the gene loadings by genomic location
 
 ``` r
-# Get gene coordinates/locations from Ensembl Biomart
-rna_locations <- load_gene_locations(colnames(results$loadings[[1]]))
-
 # Plot loadings along the genome
-genome_loadings(results$loadings[[1]][1,], gene_locations=rna_locations)
+genome_loadings(results$loadings[[1]][1,])
 ```
 
 ![](vignette_files/figure-gfm/manhatten-1.png)<!-- -->
