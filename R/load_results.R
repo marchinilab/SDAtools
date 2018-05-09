@@ -67,9 +67,9 @@ load_results <- function(results_folder, iteration=NULL, data_path=NULL) {
 
   # if dimnames saved, add back in
   if (is.null(data_path)){
-    dimnames_file <- gsub(".data","_dimnames.rds",out1$command_arguments$data)
+    dimnames_file <- paste0(tools::file_path_sans_ext(out1$command_arguments$data),"_dimnames.rds")
   }else{
-    dimnames_file <- paste0(data_path, basename(gsub(".data","_dimnames.rds",out1$command_arguments$data)))
+    dimnames_file <- paste0(data_path, basename(tools::file_path_sans_ext(out1$command_arguments$data)),"_dimnames.rds")
   }
 
   if (file.exists(dimnames_file)){

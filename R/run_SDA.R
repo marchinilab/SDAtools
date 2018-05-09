@@ -119,7 +119,7 @@ export_data <- function(matrix, path=NULL, name){
 	}
 
 	# Save a copy of the dimension labels
-	saveRDS(dimnames(matrix), paste0(path,name,"_dimnames.rds"))
+	saveRDS(dimnames(matrix), paste0(path,tools::file_path_sans_ext(name),"_dimnames.rds"))
 
 	# Create file for input to SDA
 	fwrite(data.table(signif(matrix, 3)),
