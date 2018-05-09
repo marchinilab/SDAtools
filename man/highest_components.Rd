@@ -23,6 +23,6 @@ A ggplot2 object
 }
 \examples{
 data(results)
-highest_components(results, 201)
+highest_components(results, "Xrn1")
 
 }
