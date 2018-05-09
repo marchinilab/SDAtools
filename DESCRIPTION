@@ -6,7 +6,8 @@ Date: 2017-04-19
 Authors@R: c(
 	person("Daniel", "Wells", email = "wells@stats.ox.ac.uk", role = c("aut", "cre")),
 	person("Victoria", "Hore", role = "aut"))
-Description: This package contains user friendly helper functions to accompany the SDA software
+Description: This package contains user friendly helper functions to accompany the SDA software.
+Depends: R (>= 3.1.0)
 License: MIT + file LICENSE
 Imports:
 	data.table,
@@ -15,7 +16,8 @@ Imports:
 	cowplot,
 	biomaRt,
 	NMF,
-	scales
+	scales,
+	ggforce
 RoxygenNote: 6.0.1
 Suggests:
 	knitr,
