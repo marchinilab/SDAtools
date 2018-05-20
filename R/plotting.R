@@ -611,7 +611,8 @@ if (!is.null(highlight_genes)){
 	                    temp[loading < (-min_loading)][order(loading)][1:max.items]) # add negatives
 
 } else {
-	label_data <- temp[abs(loading) > min_loading][order(-abs(loading))][1:max.items]
+  which_size_max <- as.logical(temp[abs(loading)==max(abs(loading)), sign(loading)] - 1)
+	label_data <- temp[abs(loading) > min_loading][order(-loading, decreasing = which_size_max)][1:max.items]
 }
 
 if (label_X == TRUE){
