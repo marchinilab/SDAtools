@@ -549,18 +549,24 @@ return(readRDS(paste0(path,"SDAtools_gene_locations_",name,".rds")))
 #' @param gene_locations data.table; The output of load_gene_locations() containing the gene chromosome location coordinates,
 #' if not given load_gene_locations() will be called internally.
 #'
-#' @param label_both logical; If TRUE the top N genes will be labeled for positive and negative loadings independently.
-#' If FALSE only genes with either positive OR negative loadings will be labeled, depending on which side has the highest loading.
+#' @param label_both logical; If TRUE the top N genes by absolute loadings will be labeled.
+#' If FALSE only genes with either positive OR negative loadings will be labeled, depending on which side has the largest loading.
 #'
 #' @param max.items integer; Number of genes to label each side of 0.
 #' I.e. if label_both is TRUE then the total number of labels will be twice max.items.
 #'
+#' @param label_genes charachter vector of gene names; if provided these genes will be labeled in addition to the others
+#'
 #' @param label.size numeric; size of point labels
 #'
 #' @param label.repel numeric; force of label repulsion
+#'
 #' @param label_X logical; if TRUE forces labelling of the X chromosome
+#'
 #' @param hide_unknown logical; if TRUE genes wihtout a chromosome (e.g. placed in scaffolds) are not plotted
-#' @param highlight_genes charachter vector of gene names; if provided, only these genes will be labelled
+#'
+#' @param highlight_genes charachter vector of gene names; if provided, these genes will be coloured red
+#'
 #' @param min_loading numeric; threshold on loading for labeling points;
 #'
 #' @return A data table of statistics and their values
@@ -575,12 +581,13 @@ genome_loadings <- function(component = NULL,
                             max.items = 20,
                             label.size = 3,
                             label.repel = 1,
-                            label_both = FALSE,
+                            label_both = TRUE,
                             label_X = FALSE,
                             min_loading = 0.01,
-                            gene_locations=NULL,
-                            hide_unknown=FALSE,
-                            highlight_genes = NULL){
+                            gene_locations = NULL,
+                            hide_unknown = FALSE,
+                            highlight_genes = NULL,
+                            label_genes = NULL){
 
 temp <- data.table(loading = component, gene_symbol = names(component))
 
@@ -602,17 +609,16 @@ temp <- chromosome.lengths[temp]
 
 temp[, genomic_position := genomic_offset + start_position]
 
-if (!is.null(highlight_genes)){
-  label_data <- temp[gene_symbol %in% highlight_genes]
-
-}else if (label_both == TRUE){
-	label_data <- temp[loading > min_loading][order(-loading)][1:max.items] # positives
-	label_data <- rbind(label_data,
-	                    temp[loading < (-min_loading)][order(loading)][1:max.items]) # add negatives
+if(label_both == TRUE){
+  label_data <- temp[abs(loading) > min_loading][order(-abs(loading))][1:max.items]
 
 } else {
   which_size_max <- as.logical(temp[abs(loading)==max(abs(loading)), sign(loading)] - 1)
 	label_data <- temp[abs(loading) > min_loading][order(-loading, decreasing = which_size_max)][1:max.items]
+}
+
+if (!is.null(label_genes)){
+  label_data <- unique(rbind(label_data, temp[gene_symbol %in% label_genes]))
 }
 
 if (label_X == TRUE){
@@ -648,6 +654,11 @@ P <- ggplot(temp, aes(genomic_position, loading)) +
 		segment.size=0.2,
 		segment.color="blue")
 	#	expand_limits(y = c(-0.2,0.2)) +,
+
+if (!is.null(highlight_genes)){
+  P <- P + geom_point(data=temp[gene_symbol %in% highlight_genes], size = 0.5, color = "red")
+}
+
 	return(P)
 }
 

@@ -5,9 +5,9 @@
 \title{Plot Component Loadings by Genomic Location}
 \usage{
 genome_loadings(component = NULL, max.items = 20, label.size = 3,
-  label.repel = 1, label_both = FALSE, label_X = FALSE,
+  label.repel = 1, label_both = TRUE, label_X = FALSE,
   min_loading = 0.01, gene_locations = NULL, hide_unknown = FALSE,
-  highlight_genes = NULL)
+  highlight_genes = NULL, label_genes = NULL)
 }
 \arguments{
 \item{component}{numeric; A named numeric vector containing the gene loadings and their names as the attribute "names"}
@@ -19,8 +19,8 @@ I.e. if label_both is TRUE then the total number of labels will be twice max.ite
 
 \item{label.repel}{numeric; force of label repulsion}
 
-\item{label_both}{logical; If TRUE the top N genes will be labeled for positive and negative loadings independently.
-If FALSE only genes with either positive OR negative loadings will be labeled, depending on which side has the highest loading.}
+\item{label_both}{logical; If TRUE the top N genes by absolute loadings will be labeled.
+If FALSE only genes with either positive OR negative loadings will be labeled, depending on which side has the largest loading.}
 
 \item{label_X}{logical; if TRUE forces labelling of the X chromosome}
 
@@ -31,7 +31,9 @@ if not given load_gene_locations() will be called internally.}
 
 \item{hide_unknown}{logical; if TRUE genes wihtout a chromosome (e.g. placed in scaffolds) are not plotted}
 
-\item{highlight_genes}{charachter vector of gene names; if provided, only these genes will be labelled}
+\item{highlight_genes}{charachter vector of gene names; if provided, these genes will be coloured red}
+
+\item{label_genes}{charachter vector of gene names; if provided these genes will be labeled in addition to the others}
 }
 \value{
 A data table of statistics and their values
