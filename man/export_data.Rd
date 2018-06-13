@@ -9,7 +9,7 @@ export_data(matrix, path = NULL, name)
 \arguments{
 \item{matrix}{numeric matrix; the matrix you wish to save in a format readable by SDA}
 
-\item{path}{character; the directory in which you want the data to be saved}
+\item{path}{character; the directory in which you want the data to be saved, default is current working directory}
 
 \item{name}{character; the name of the data file}
 }

@@ -105,7 +105,7 @@ run_SDA <- function(sda_location = "sda",
 #'
 #' @param matrix numeric matrix; the matrix you wish to save in a format readable by SDA
 #'
-#' @param path character; the directory in which you want the data to be saved
+#' @param path character; the directory in which you want the data to be saved, default is current working directory
 #'
 #' @param name character; the name of the data file
 #'

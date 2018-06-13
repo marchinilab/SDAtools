@@ -62,7 +62,7 @@ qplot(seq_along(diff(results$free_energy[1,]))  * as.numeric(results$command$fre
 #' loading_distribution(results, split_by_pip = TRUE, facet_type="wrap")
 #'
 #' @export
-#' @import ggplot2 ggforce
+#' @import ggplot2
 loading_distribution <- function(results, omic=1, split_by_pip=FALSE, bw="nrd0", n=2^9, facet_type="zoom"){
 #
 	if(split_by_pip){
@@ -79,6 +79,7 @@ loading_distribution <- function(results, omic=1, split_by_pip=FALSE, bw="nrd0",
     scale_x_continuous(labels = function(x) as.character(x))
 
   if(facet_type=="zoom"){
+    if (!requireNamespace("ggforce", quietly = TRUE)) {stop("Package \"ggforce\" is required for partial PCA. Please install it.", call. = FALSE)}
     sparsity_plot <- sparsity_plot + facet_zoom(xy = density < density_data[type=="Slab (PIP > 0.5)",max(density)]*1.5 &
                                                   abs(gene_loading) < quantile(abs(results$loadings[[omic]][results$pips[[1]]>0.5]), 0.95))
   }else{
