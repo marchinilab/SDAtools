@@ -64,11 +64,11 @@ run_SDA <- function(sda_location = "sda",
 	dir.create(out)
 
 	if(is.null(save_freq)){
-	  save_freq <- max_iter/2
+	  save_freq <- ceiling(max_iter/2)
 	}
 
 	if(is.null(free_freq)){
-	  free_freq <- max_iter/20
+	  free_freq <- ceiling(max_iter/100)
 	}
 
 	if(!is.null(set_seed)){
