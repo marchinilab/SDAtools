@@ -140,7 +140,7 @@ scores_distribution <- function(results){
 #'
 #' @export
 #' @import data.table ggplot2 ggrepel
-plot_maximums <- function(results, omic=1){
+plot_maximums <- function(results, omic=1, labels=T, ...){
 
   if(is.null(results$component_statistics$max_score)){ # skip if previously calculated
 
@@ -165,9 +165,14 @@ plot_maximums <- function(results, omic=1){
 
   }
 
-ggplot(results$component_statistics, aes(max_score, max_loading, label = Component_name)) +
-  geom_point() +
-  geom_label_repel()
+p <- ggplot(results$component_statistics, aes(max_score, max_loading, label = Component_name)) +
+  geom_point()
+if(labels){
+	p <- p + geom_label_repel(...)
+}
+
+return(p)
+
 }
 
 
