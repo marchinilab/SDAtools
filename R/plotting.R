@@ -647,8 +647,8 @@ if(hide_unknown){
 }
 
 
-P <- ggplot(temp, aes(genomic_position, loading)) +
-	geom_point(stroke=0, aes(alpha=(abs(loading))^0.7, size=abs(loading)^2, color = chromosome)) +
+P <- ggplot(temp, aes(genomic_position, loading, size=abs(loading)^2)) +
+	geom_point(stroke=0, aes(alpha=(abs(loading))^0.7, color = chromosome)) +
 	scale_colour_manual(values = c(rep_len(c("black", "cornflowerblue"), length(levels(temp$chromosome))), "grey")) +
 	xlab("Genomic Coordinate") +
 	ylab("Loading") +
@@ -666,7 +666,7 @@ P <- ggplot(temp, aes(genomic_position, loading)) +
 	#	expand_limits(y = c(-0.2,0.2)) +,
 
 if (!is.null(highlight_genes)){
-  P <- P + geom_point(data=temp[gene_symbol %in% highlight_genes], size = 0.5, color = "red")
+  P <- P + geom_point(data=temp[gene_symbol %in% highlight_genes], color = "red")
 }
 
 	return(P)
