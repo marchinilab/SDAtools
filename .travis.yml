@@ -5,6 +5,8 @@ sudo: false
 cache: packages
 bioc_packages: biomaRt
 
+warnings_are_errors: false
+
 # units2 required for ggforce dependency
 before_install:
   - sudo add-apt-repository ppa:ubuntugis/ubuntugis-unstable --yes
