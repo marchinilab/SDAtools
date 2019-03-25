@@ -353,14 +353,6 @@ PIP_threshold_distribution <- function(results, omic=1){
 #
 highest_components <- function(results, variable_name, top_n=5, omic=1){
 
-  reverselog_trans <- function(base = exp(1)) {
-    trans <- function(x) -log(x, base)
-    inv <- function(x) base^(-x)
-    trans_new(paste0("reverselog-", format(base)), trans, inv,
-              log_breaks(base = base),
-              domain = c(1e-100, Inf))
-    }
-
   if(is.null(colnames(results$loadings[[omic]]))){
     colnames(results$loadings[[omic]]) <- 1:ncol(results$loadings[[omic]])
   }
@@ -386,6 +378,23 @@ highest_components <- function(results, variable_name, top_n=5, omic=1){
                      segment.color="blue") +
     ggtitle(paste("Components with highest loading for variable:", variable_name))
 }
+
+
+
+#' reversed log scale
+#' @param base; what base log to use, e.g. 10, exp(1) (Default)
+#' @export
+#' @importFrom scales trans_new log_breaks
+
+reverselog_trans <- function(base = 10, breaks=5) {
+        trans <- function(x) -log(x, base)
+        inv <- function(x) base^(-x)
+	    trans_new(name = "reverselog",
+			transform = trans,
+			inverse = inv,
+			breaks = log_breaks(n=breaks, base = base),
+			domain = c(1e-100, Inf))
+    }
 
 #' Which gene has the highest loading for a given component
 #'
