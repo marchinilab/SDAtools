@@ -4,7 +4,7 @@
 \alias{plot_maximums}
 \title{Plot maximum score and loading by component}
 \usage{
-plot_maximums(results, omic = 1)
+plot_maximums(results, omic = 1, labels = T, ...)
 }
 \arguments{
 \item{results}{list; object containing result  (output of read_output)}

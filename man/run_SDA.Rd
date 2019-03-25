@@ -5,10 +5,10 @@
 \title{run_SDA}
 \usage{
 run_SDA(sda_location = "sda", out = NULL, data = NULL, N = NULL,
-  num_comps = 10, max_iter = 500, save_freq = NULL, free_freq = NULL,
-  set_seed = NULL, ignore_missing = FALSE, remove_zero_comps = TRUE,
-  eigen_parallel = FALSE, num_blocks = 1, num_openmp_threads = 1,
-  save_everything = FALSE, debug = FALSE)
+  num_comps = 10, max_iter = 500, save_freq = NULL,
+  free_freq = NULL, set_seed = NULL, ignore_missing = FALSE,
+  remove_zero_comps = TRUE, eigen_parallel = FALSE, num_blocks = 1,
+  num_openmp_threads = 1, save_everything = FALSE, debug = FALSE)
 }
 \arguments{
 \item{sda_location}{string; location of the sda executable e.g. "../SDA/build/sda"

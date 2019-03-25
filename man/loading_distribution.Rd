@@ -4,8 +4,8 @@
 \alias{loading_distribution}
 \title{Plot overall distribution of gene loadings}
 \usage{
-loading_distribution(results, omic = 1, split_by_pip = FALSE, bw = "nrd0",
-  n = 2^9, facet_type = "zoom")
+loading_distribution(results, omic = 1, split_by_pip = FALSE,
+  bw = "nrd0", n = 2^9, facet_type = "zoom")
 }
 \arguments{
 \item{results}{list; object containing result  (output of read_output)}

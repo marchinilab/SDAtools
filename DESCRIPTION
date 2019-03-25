@@ -18,7 +18,7 @@ Imports:
 	biomaRt,
 	NMF,
 	scales
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
 Suggests:
 	knitr,
 	rmarkdown,
