@@ -36,6 +36,7 @@ qplot(seq_len(ncol(results$free_energy)) * as.numeric(results$command$free_freq)
 plot_free_energy_change <- function(results) {
 qplot(seq_along(diff(results$free_energy[1,]))  * as.numeric(results$command$free_freq),
       diff(results$free_energy[1,]),
+	  stroke=0,
       ylab="Change in Free Energy",
       xlab="Iteration") +
     scale_y_log10()
@@ -254,6 +255,32 @@ plot_PIP <- function(results, burn_in = 50) {
 	      xlab="Iteration")
 }
 
+#' Plot change in fraction of PIPs <0.5 over time
+#'
+#' \code{plot_PIP_change} Plot change in fraction of PIPs <0.5 over time
+#'
+#'
+#' @param results list; object containing result  (output of read_output)
+#'
+#' @return A ggplot2 object
+#'
+#' @examples
+#' data(results)
+#' plot_PIP_change(results)
+#'
+#' @export
+#' @import ggplot2
+plot_PIP_change <- function(results) {
+	# thin results byb 1/3 for plotting
+	qplot(seq_along(diff(results$pip_fraction[c(T,F,F)])) * 3,
+		  diff(results$pip_fraction[c(T,F,F)]),
+		  stroke=0,
+		  alpha=I(0.5),
+		  ylab="Change in fraction of PIPs < 0.5",
+		  xlab="Iteration") +
+		scale_y_log10()
+}
+
 #' Plot PIP distribution
 #'
 #' \code{PIP_distribution} Plot final PIP distribution over all components
@@ -273,7 +300,7 @@ plot_PIP <- function(results, burn_in = 50) {
 #' @import ggplot2
 PIP_distribution <- function(results, omic=1){
 	qplot(as.numeric(results$pips[[omic]]), geom="histogram", binwidth=0.005) +
-    xlab("PIP")
+    xlab("PIP") + ylab("Count")
 }
 
 #' Plot PIP distribution for a single component
