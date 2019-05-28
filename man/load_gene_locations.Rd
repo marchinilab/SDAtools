@@ -19,7 +19,7 @@ load_gene_locations(genes = NULL, cache = TRUE, path = "",
 \item{name}{character; descriptive name of dataset, this will be appended to the standard cache file name when saving / loading the cache}
 }
 \value{
-A data table of genes chromosome and coordinate. An object named chromosome.lengths will also be created in the global environment.
+A data table of genes chromosome and coordinate.
 }
 \description{
 \code{load_gene_locations} Load gene coordinates from Ensembl biomart or Cached data

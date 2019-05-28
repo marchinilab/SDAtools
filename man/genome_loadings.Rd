@@ -6,7 +6,8 @@
 \usage{
 genome_loadings(component = NULL, max.items = 20, label.size = 3,
   label.repel = 1, label_both = TRUE, label_X = FALSE,
-  min_loading = 0.01, gene_locations = NULL, hide_unknown = FALSE,
+  min_loading = 0.01, gene_locations = NULL,
+  chromosome_lengths = NULL, hide_unknown = FALSE,
   highlight_genes = NULL, label_genes = NULL)
 }
 \arguments{
@@ -28,6 +29,9 @@ If FALSE only genes with either positive OR negative loadings will be labeled, d
 
 \item{gene_locations}{data.table; The output of load_gene_locations() containing the gene chromosome location coordinates,
 if not given load_gene_locations() will be called internally.}
+
+\item{chromosome_lengths}{data.table; The ouput of load_chromosome_lengths(),
+if not given load_chromosome_lengths() will be called internally.}
 
 \item{hide_unknown}{logical; if TRUE genes wihtout a chromosome (e.g. placed in scaffolds) are not plotted}
 
