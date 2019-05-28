@@ -540,7 +540,7 @@ return(mapTab)
 #'
 #' @param name character; descriptive name of dataset, this will be appended to the standard cache file name when saving / loading the cache
 #'
-#' @return A data table of genes chromosome and coordinate. An object named chromosome.lengths will also be created in the global environment.
+#' @return A data table of genes chromosome and coordinate.
 #'
 #' @examples
 #' data(results)
@@ -555,30 +555,41 @@ if (file.exists(paste0(path, "SDAtools_gene_locations_", name, ".rds"))==FALSE){
 }
 # assign("rna.location", readRDS(paste0(path,"SDAtools_gene_locations_",name,".rds")), envir=globalenv())
 
-# set chromosome lengths for calculating plotting position
-if (organism=="mmusculus_gene_ensembl"){
-# http://www.ncbi.nlm.nih.gov/projects/genome/assembly/grc/mouse/data/
-chromosome.lengths <- data.table(chromosome=factor(c(1:19,"X","Y","MT","?")),
-                                 length=c(196283350,182113224,160039680,157219549,153573022,149736546,145617427,129401213,124595110,130694993,122082543,
-                                          120129022,120421639,124902244,104043685,98207768,94987271,90702639,61431566,171368232,92500857,18e3,803895))
-
-}else if(organism=="hsapiens_gene_ensembl"){
-# http://www.ncbi.nlm.nih.gov/projects/genome/assembly/grc/human/data/ GRCh38.p7
-chromosome.lengths <- data.table(chromosome=factor(c(1:22,"X","Y","MT","?")),
-                                 length=c(248956422,242193529,198295559,190214555,181538259,170805979,159345973,145138636,138394717,133797422,135086622,133275309,
-                                          114364328,107043718,101991189,90338345,83257441,80373285,58617616,64444167,46709983,50818468,156040895,57227415,22222222,4485509))
-}else{
-  print("Error: Organism chromosme lengths not found / not currently supported")
-}
-chromosome.lengths[,length_padded:=length+1e7]
-chromosome.lengths[chromosome %in% c("Y","MT"), length_padded:=length_padded+4e7]
-chromosome.lengths[,genomic_offset:=cumsum(as.numeric(length_padded))-(length_padded)]
-chromosome.lengths[,center := genomic_offset + length/2]
-setkey(chromosome.lengths,chromosome)
-
-assign("chromosome.lengths", chromosome.lengths, envir=globalenv())
-
 return(readRDS(paste0(path,"SDAtools_gene_locations_",name,".rds")))
+}
+
+
+#' Load chromosome lengths
+#'
+#' @param organism character; which dataset from Ensembl should be used, e.g. "mmusculus_gene_ensembl" or "hsapiens_gene_ensembl"
+#'
+#' @return A data table with columns: chromosome, length, length_padded, genomic_offset, center
+#'
+#' @export
+#' @import data.table
+load_chromosome_lengths <- function(organism="mmusculus_gene_ensembl"){
+  # set chromosome lengths for calculating plotting position
+  if (organism=="mmusculus_gene_ensembl"){
+    # http://www.ncbi.nlm.nih.gov/projects/genome/assembly/grc/mouse/data/
+    chromosome.lengths <- data.table(chromosome=factor(c(1:19,"X","Y","MT","?")),
+                                     length=c(196283350,182113224,160039680,157219549,153573022,149736546,145617427,129401213,124595110,130694993,122082543,
+                                              120129022,120421639,124902244,104043685,98207768,94987271,90702639,61431566,171368232,92500857,18e3,803895))
+
+  }else if(organism=="hsapiens_gene_ensembl"){
+    # http://www.ncbi.nlm.nih.gov/projects/genome/assembly/grc/human/data/ GRCh38.p7
+    chromosome.lengths <- data.table(chromosome=factor(c(1:22,"X","Y","MT","?")),
+                                     length=c(248956422,242193529,198295559,190214555,181538259,170805979,159345973,145138636,138394717,133797422,135086622,133275309,
+                                              114364328,107043718,101991189,90338345,83257441,80373285,58617616,64444167,46709983,50818468,156040895,57227415,22222222,4485509))
+  }else{
+    print("Error: Organism chromosme lengths not found / not currently supported")
+  }
+  chromosome.lengths[,length_padded:=length+1e7]
+  chromosome.lengths[chromosome %in% c("Y","MT"), length_padded:=length_padded+4e7]
+  chromosome.lengths[,genomic_offset:=cumsum(as.numeric(length_padded))-(length_padded)]
+  chromosome.lengths[,center := genomic_offset + length/2]
+  setkey(chromosome.lengths,chromosome)
+
+  return(chromosome.lengths)
 }
 
 
@@ -590,6 +601,9 @@ return(readRDS(paste0(path,"SDAtools_gene_locations_",name,".rds")))
 #'
 #' @param gene_locations data.table; The output of load_gene_locations() containing the gene chromosome location coordinates,
 #' if not given load_gene_locations() will be called internally.
+#'
+#' @param chromosome_lengths data.table; The ouput of load_chromosome_lengths(),
+#' if not given load_chromosome_lengths() will be called internally.
 #'
 #' @param label_both logical; If TRUE the top N genes by absolute loadings will be labeled.
 #' If FALSE only genes with either positive OR negative loadings will be labeled, depending on which side has the largest loading.
@@ -627,6 +641,7 @@ genome_loadings <- function(component = NULL,
                             label_X = FALSE,
                             min_loading = 0.01,
                             gene_locations = NULL,
+                            chromosome_lengths = NULL,
                             hide_unknown = FALSE,
                             highlight_genes = NULL,
                             label_genes = NULL){
@@ -637,6 +652,12 @@ if(is.null(gene_locations)){
   gene_locations <- load_gene_locations(colnames(results$loadings[[1]]))
 }
 
+if(is.null(chromosome_lengths)){
+  message("Using mmusculus_gene_ensembl chromosome lengths")
+  chromosome_lengths <- load_chromosome_lengths(organism = "mmusculus_gene_ensembl")
+}
+
+
 setkey(temp, gene_symbol)
 setkey(gene_locations, gene_symbol)
 temp <- merge(temp, gene_locations, all.x = TRUE)
@@ -644,10 +665,10 @@ temp <- merge(temp, gene_locations, all.x = TRUE)
 temp$chromosome <- factor(temp$chromosome_name, levels = c(1:22,"X","Y","MT","?"))
 
 temp[is.na(chromosome)]$chromosome <- "?"
-temp[chromosome=="?"]$start_position <- sample(1:chromosome.lengths[chromosome=="?"]$length, nrow(temp[chromosome=="?"]))
+temp[chromosome=="?"]$start_position <- sample(1:chromosome_lengths[chromosome=="?"]$length, nrow(temp[chromosome=="?"]))
 
 setkey(temp,chromosome)
-temp <- chromosome.lengths[temp]
+temp <- chromosome_lengths[temp]
 
 temp[, genomic_position := genomic_offset + start_position]
 
@@ -670,7 +691,7 @@ if (label_X == TRUE){
 
 levels(temp$chromosome)[levels(temp$chromosome)=="MT"] <- "M"
 
-cl <- chromosome.lengths
+cl <- chromosome_lengths
 levels(cl$chromosome)[levels(cl$chromosome)=="MT"] <- "M"
 
 if(hide_unknown){
