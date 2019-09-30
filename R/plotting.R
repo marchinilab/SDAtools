@@ -625,6 +625,8 @@ load_chromosome_lengths <- function(organism="mmusculus_gene_ensembl"){
 #'
 #' @param min_loading numeric; threshold on loading for labeling points;
 #'
+#' @param species string; ensembl organism string e.g. mmusculus_gene_ensembl or hsapiens_gene_ensembl
+#'
 #' @return A data table of statistics and their values
 #'
 #' @examples
@@ -644,17 +646,19 @@ genome_loadings <- function(component = NULL,
                             chromosome_lengths = NULL,
                             hide_unknown = FALSE,
                             highlight_genes = NULL,
-                            label_genes = NULL){
+                            label_genes = NULL,
+                            species = "mmusculus_gene_ensembl"){
 
 temp <- data.table(loading = component, gene_symbol = names(component))
 
 if(is.null(gene_locations)){
-  gene_locations <- load_gene_locations(colnames(results$loadings[[1]]))
+  message(paste0("Using ",species," gene locations"))
+  gene_locations <- load_gene_locations(names(component), organism = species)
 }
 
 if(is.null(chromosome_lengths)){
-  message("Using mmusculus_gene_ensembl chromosome lengths")
-  chromosome_lengths <- load_chromosome_lengths(organism = "mmusculus_gene_ensembl")
+  message(paste0("Using ",species," chromosome lengths"))
+  chromosome_lengths <- load_chromosome_lengths(organism = species)
 }
 
 
