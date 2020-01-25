@@ -43,7 +43,7 @@ load_results <- function(results_folder, iteration=NULL, data_path=NULL) {
 
   # if log saved, extract PIP fraction < 0.5
   if (file.exists(paste0(results_folder, "/log.txt"))){
-    out1$pip_fraction <- fread(paste0("grep -o '[0]) : [0-9].*[0-9]*' ", results_folder, "/log.txt", sep=" "))[1:iteration]$V3
+    out1$pip_fraction <- fread(cmd=paste0("grep -o '[0]) : [0-9].*[0-9]*' ", results_folder, "/log.txt", sep=" "))[1:iteration]$V3
   } else {
     message(paste0("Log file containing pip fraction per iteration not found: '", results_folder, "/log.txt'"))
   }
